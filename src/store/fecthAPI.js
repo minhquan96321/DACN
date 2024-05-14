@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-let url = "http://localhost:8080/api";
+// let url = "http://localhost:8080/api";
+let url = "https://project-go-evsc.onrender.com/api";
 const token = localStorage.getItem("Token");
 
 export const useFecthStore = defineStore("Contact", {
@@ -163,7 +164,7 @@ export const useBlogStore = defineStore("Blog", {
         // console.log("blog : " + response.data.message);
         this.blogdata = response.data.message;
         // console.log("blog : " + this.blogdata);
-      } catch (error) {}
+      } catch (error) { }
     },
 
     // async getPageBlog(page, limit) {
