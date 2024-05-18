@@ -120,7 +120,7 @@ const handleclick = async () => {
   if (status.value === false) {
     toast.error(errorMessages, {
       autoClose: 2000,
-    }); 
+    });
   }
 }
 
@@ -138,7 +138,7 @@ const handleclick = async () => {
 
 
 
-// console.log("DetailsData" + dataDetails.value)
+console.log("DetailsData" + dataDetails.value)
 
 </script>
 
@@ -159,7 +159,7 @@ const handleclick = async () => {
         </h1>
 
         <figure class="figure-img">
-          <img src="https://photo.znews.vn/w660/Uploaded/mdf_eioxrd/2021_07_06/2.jpg" alt="" class="img-fluid" />
+          <img :src="dataDetails?.image?.blogUrl" alt="" class="img-fluid" />
         </figure>
 
         <p class="singlepost-content-image">
@@ -169,7 +169,7 @@ const handleclick = async () => {
         <form class="comments" @submit.prevent="handleclick">
           <h5 class="comments-titile">{{ dataComents.length }} Comments</h5>
 
-          <div class="author-comments" v-for="(coment, index) in  dataComents ">
+          <div class="author-comments" v-for="(coment, index) in dataComents ">
 
             <div class="avtar-author">
               <img src="https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-meo-con-khung-long.jpg" alt=""
@@ -233,7 +233,7 @@ const handleclick = async () => {
 
 
               <input class="send-message" type="submit" value="Post comment " />
-              <div class="button-submit"></div>
+              <!-- <div class="button-submit"></div> -->
             </div>
           </div>
         </form>
@@ -369,6 +369,11 @@ const handleclick = async () => {
   cursor: pointer;
 }
 
+.img-fluid {
+  border-radius: 10px;
+}
+
+
 @media (min-width: 1400px) {
   .singlepost-container-body {
     max-width: 1320px;
@@ -384,7 +389,7 @@ const handleclick = async () => {
   }
 
   .img-fluid {
-    max-width: 100%;
+    width: 100%;
     height: auto;
     vertical-align: middle;
     border-radius: 5px;
@@ -413,6 +418,56 @@ const handleclick = async () => {
     width: 100%;
     object-fit: cover;
     height: 100%
+  }
+}
+
+@media (max-width: 767px) {
+  .singlepost-content {
+    padding: 0 12px;
+  }
+
+  .title-singlepost {
+    font-size: 28px;
+  }
+
+
+  .post-meta {
+    margin-bottom: 25px
+  }
+
+  .avtar-author {
+    width: 10%;
+    margin-right: 12px;
+  }
+
+  .avatar {
+    width: 100%;
+  }
+
+  .name-author {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .row-submit {
+    display: block;
+  }
+
+  .send-message {
+    padding: 15px
+  }
+
+  .div-image {
+    width: 50%;
+  }
+
+  .img-fluid {
+    border-radius: 10px;
+    width: 100%;
+  }
+
+  .singlepost-content-image {
+    font-size: 14px;
   }
 }
 </style>

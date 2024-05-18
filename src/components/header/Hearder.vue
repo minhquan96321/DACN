@@ -1,7 +1,30 @@
 <script setup>
 import { ref } from "vue";
 
-let navbarLists = ref(["Culture", "Business", "Lifestyle"]);
+// let navbarLists = ref(["Culture", "Business", "Lifestyle"]);
+
+const sibarMenu = ref(false)
+const seemore = ref(false)
+const iconArrow = ref("fa-sharp fa-solid fa-angle-down")
+
+const handlSibarModal = () => {
+  sibarMenu.value = true
+}
+
+const handlCloseModal = () => {
+  sibarMenu.value = false
+}
+
+const handSeeMore = () => {
+  seemore.value != seemore.value
+  if (!seemore.value) {
+    seemore.value = true;
+    iconArrow.value = "fa-sharp fa-solid fa-angle-up";
+  } else {
+    seemore.value = false;
+    iconArrow.value = "fa-sharp fa-solid fa-angle-down"
+  }
+}
 </script>
 
 <template>
@@ -60,7 +83,44 @@ let navbarLists = ref(["Culture", "Business", "Lifestyle"]);
           <span class="bi-intagram bi-icon"><i class="fa-brands fa-instagram"></i></span>
         </a>
         <span class="bi-search bi-icon"><i class="fa-sharp fa-thin fa-magnifying-glass"></i></span>
+        <span class="bi-menu bi-icon" @click.prevent="handlSibarModal"><i class="fa-solid fa-bars icon-menu"></i></span>
       </div>
+    </div>
+  </div>
+
+  <!-- <ModalSidebar :boolModal="sibarMenu" /> -->
+  <div class="confirm-dialog" v-if="sibarMenu">
+    <div class="dialog-content">
+      <div class="bi-xmark bi-icon" @click.prevent="handlCloseModal"><i class="fa-solid fa-xmark icon-xmark"></i></div>
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-child">
+          <router-link :to="{ name: 'HomePage' }" class="link_foder">Blog</router-link>
+        </li>
+        <li class="sidebar-menu-child">
+          <div class="sidebar-menu-child-categori" @click.prevent="handSeeMore">
+            <span>Categories</span>
+            <i :class="iconArrow"></i>
+          </div>
+
+          <ul class="categori_child" v-if="seemore">
+            <li class="categoris_child_foder">
+              <router-link :to="{ name: 'CulturePage' }" class="link_foder">Culture</router-link>
+            </li>
+            <li class="categoris_child_foder">
+              <router-link :to="{ name: 'BusinessPage' }" class="link_foder">Business</router-link>
+            </li>
+            <li class="categoris_child_foder">
+              <router-link :to="{ name: 'LifestylePage' }" class="link_foder">Lifestyle</router-link>
+            </li>
+          </ul>
+        </li>
+        <li class="sidebar-menu-child">
+          <router-link :to="{ name: 'AboutPage' }" class="link_foder">About</router-link>
+        </li>
+        <li class="sidebar-menu-child">
+          <router-link :to="{ name: 'ContactPage' }" class="link_foder">Contact</router-link>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -79,7 +139,7 @@ let navbarLists = ref(["Culture", "Business", "Lifestyle"]);
   z-index: 997;
   background: #f2f2f2;
   align-items: center !important;
-  display: flex !important;
+  display: flex;
   position: fixed;
   top: 0;
   right: 0;
@@ -180,9 +240,95 @@ let navbarLists = ref(["Culture", "Business", "Lifestyle"]);
   margin: 0 4px;
 }
 
-@media (min-width: 1400px) {
+.icon-menu {
+  display: none;
+}
+
+.confirm-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.dialog-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  height: 80%;
+}
+
+.categori_child,
+.sidebar-menu {
+  list-style: none;
+}
+
+.sidebar-menu-child {
+  font-size: 18px;
+  font-family: 'Poppins';
+  margin-bottom: 20px;
+  padding: 5px
+}
+
+.sidebar-menu-child-categori {
+  display: flex;
+  justify-content: space-between;
+}
+
+.categori_child {
+  margin: 0 10px;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+}
+
+.categoris_child_foder {
+  font-size: 16px;
+  margin: 15px 0;
+  font-family: 'Poppins';
+  padding: 10px 20px;
+}
+
+.link_foder {
+  display: block;
+  text-decoration: none;
+  color: #212529;
+}
+
+.bi-xmark {
+  text-align: right;
+  font-size: 20px;
+}
+
+.icon-xmark {
+  padding: 10px
+}
+
+@media (max-width: 1400px) {
   .container {
     max-width: 1320px;
+  }
+
+
+}
+
+@media (max-width: 767px) {
+  .navbar {
+    display: none
+  }
+
+  .container {
+    padding: 0 10px;
+  }
+
+  .icon-menu {
+    font-size: 20px;
+    display: inline-block;
   }
 }
 </style>

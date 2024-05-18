@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import router from "./router/index";
 import VueAwesomePaginate from "vue-awesome-paginate";
+import "vue-awesome-paginate/dist/style.css";
 // import routerAdmin from "./router/admin";
 import App from "./App.vue";
 

@@ -66,3 +66,43 @@ const outstanding = computed(() => {
         </div>
     </div>
 </template>
+
+<style scoped>
+@media (max-width:767px) {
+    .business-navbar {
+        display: none;
+    }
+
+    .blog-navbar {
+        display: none;
+    }
+
+    .blog-emtry-business {
+        width: 100%;
+    }
+
+    .blog-post-emtry,
+    .outstanding {
+        display: flex;
+        flex-wrap: wrap
+    }
+
+    .business-outstanding {
+        display: flex;
+        flex-wrap: wrap
+    }
+
+    .blog-emtry-post {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .list-post-two,
+    .list-post-one {
+        width: 100%;
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+
+}
+</style>

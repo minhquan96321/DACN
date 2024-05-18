@@ -62,5 +62,12 @@ onMounted(async () => {
   .blog-post {
     max-width: 1320px;
   }
+
+}
+
+@media (max-width: 767px) {
+  .blog {
+    padding: 0px;
+  }
 }
 </style>

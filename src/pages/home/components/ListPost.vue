@@ -49,11 +49,11 @@ const {
           {{ title }}
         </a> -->
         <router-link :to="{
-    name: 'DetailPage', params: { id: `${detaiId}` }
-  }" :class="small === 'mall' ? 'small' : 'big'" style="text-decoration: none; color: #000">{{
-    title }}</router-link>
+          name: 'DetailPage', params: { id: `${detaiId}` }
+        }" :class="small === 'mall' ? 'small' : 'big'" style="text-decoration: none; color: #000">{{
+          title }}</router-link>
       </h3>
-      <p>{{ content }}</p>
+      <p class="post-conten">{{ content }}</p>
       <div class="author">
         <div class="photo">
           <img v-if="small !== 'mall'" :src="imgAuthor" class="img-full" />
@@ -145,5 +145,39 @@ p {
 
 .author-name {
   margin-bottom: 16px;
+}
+
+@media (max-width: 767px) {
+  /* .thumbnai {
+    width: ;
+  } */
+
+  .thumbnai {
+    width: 100%;
+    margin-right: 0px;
+    /* margin-bottom: 10px */
+  }
+
+  .outstanding-title {
+    width: 100%;
+
+  }
+
+  .img-full {
+    width: 30px;
+    height: 30px;
+  }
+
+  .full-img {
+    margin-bottom: 10px;
+    border-radius: 10px
+  }
+
+  .post-conten {
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
 </style>

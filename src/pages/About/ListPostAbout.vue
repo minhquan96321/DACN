@@ -67,4 +67,24 @@ const { title, content, image } = defineProps(["title", "content", "image"]);
   font-size: 16px;
   line-height: 1.8;
 }
+
+@media (max-width: 767px) {
+  .introduce-company {
+    display: block
+  }
+
+  .introduce-content {
+    padding: 0;
+  }
+
+  .introduce-about {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .compony-title {
+    font-size: 35px
+  }
+
+}
 </style>

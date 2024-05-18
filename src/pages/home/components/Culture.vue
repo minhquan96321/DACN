@@ -51,15 +51,13 @@ const outstanding = computed(() => {
             <div class="culture-list-post blog-post-emtry">
               <div class="culture-post-one list-post-one">
                 <ListPost :title="items?.titleBlog" small="mall" :author="items?.nameAuthor" :content="items?.content"
-                  :imageTrending="items?.image?.blogUrl"
-                  imgaeA="true" :category="items?.categori.title" :day="getTimeAgo(items?.createdAt)"
-                  :detaiId="items?._id" />
+                  :imageTrending="items?.image?.blogUrl" imgaeA="true" :category="items?.categori.title"
+                  :day="getTimeAgo(items?.createdAt)" :detaiId="items?._id" />
               </div>
               <div class="culture-post-two list-post-two">
                 <ListPost :day="getTimeAgo(outstanding?.createdAt)" :category="outstanding?.categori.title"
-                  :content="outstanding?.content"
-                  :imageTrending="outstanding?.image?.blogUrl"
-                  imgaeA="true" :title="outstanding?.titleBlog" :author="outstanding?.nameAuthor"
+                  :content="outstanding?.content" :imageTrending="outstanding?.image?.blogUrl" imgaeA="true"
+                  :title="outstanding?.titleBlog" :author="outstanding?.nameAuthor"
                   imgAuthor="https://e0.pxfuel.com/wallpapers/513/637/desktop-wallpaper-one-punch-man-saitama-8k-8k-japanese.jpg"
                   :detaiId="outstanding?._id" />
               </div>
@@ -117,9 +115,13 @@ const outstanding = computed(() => {
   padding: 0 12px;
 }
 
-.business-outstanding,
+.business-outstanding {
+  display: flex;
+}
+
 .outstanding {
   display: flex;
+  /* flex-wrap: wrap */
 }
 
 .blog-post-emtry {
@@ -135,5 +137,29 @@ const outstanding = computed(() => {
 .list-post-two {
   width: 70%;
   padding-left: 12px;
+}
+
+@media (max-width:767px) {
+  .blog-navbar {
+    display: none;
+  }
+
+  .blog-post-emtry,
+  .outstanding {
+    display: flex;
+    flex-wrap: wrap
+  }
+
+  .blog-emtry-post {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .list-post-two,
+  .list-post-one {
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+  }
 }
 </style>

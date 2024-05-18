@@ -52,4 +52,12 @@ const { category, seeCategory } = defineProps(["category", "seeCategory"]);
 .outstanding-title {
   width: 33.33333%;
 }
+
+@media (max-width: 767px) {
+  .culture-seach {
+    padding: 0 5px;
+    margin-left: 8px;
+    margin-right: 8px
+  }
+}
 </style>

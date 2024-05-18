@@ -48,9 +48,9 @@ const onClickHandler = async (page) => {
                         Category: {{ titleCategori }}
                     </h3>
                     <ListPostCategori v-for="(data, index) of dataCategori" :title="data?.titleBlog"
-                        :imagePost="data?.image?.blogUrl"
-                        :category="data.categori?.title" :day="getTimeAgo(data?.createdAt)" :content="data?.content"
-                        :imgAuthor="data?.avatar" :author="data?.nameAuthor" :detaiId="data?._id" />
+                        :imagePost="data?.image?.blogUrl" :category="data.categori?.title"
+                        :day="getTimeAgo(data?.createdAt)" :content="data?.content" :imgAuthor="data?.avatar"
+                        :author="data?.nameAuthor" :detaiId="data?._id" />
                 </div>
                 <div class="row-categori-navbar">
                     <ListPostCategori small="mall" title="How to Avoid Distraction and Stay Focused During Video Calls?"
@@ -70,7 +70,7 @@ const onClickHandler = async (page) => {
     <Footer />
 </template>
 
-<style scoped>
+<style>
 .post-categori {
     margin-left: auto;
     margin-right: auto;
@@ -85,6 +85,9 @@ const onClickHandler = async (page) => {
     font-weight: 600;
     margin-bottom: 30px;
 }
+
+
+
 
 
 @media (min-width: 1400px) {
@@ -104,6 +107,12 @@ const onClickHandler = async (page) => {
     .row-categori-navbar {
         width: 25%;
         padding: 0 12px;
+    }
+}
+
+@media (max-width: 767px) {
+    .row-categori {
+        padding: 0 12px
     }
 }
 </style>

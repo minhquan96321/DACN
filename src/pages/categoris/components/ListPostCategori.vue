@@ -20,9 +20,11 @@ console.log("Id : " + detaiId);
 
 
   <div :class="small === 'mall' ? 'boder-bottom' : 'list-pots-category'">
-    <a href="" class="list-post-image">
+    <router-link :to="{
+      name: 'DetailPage', params: { id: `${detaiId}` }
+    }" class="list-post-image">
       <img :src="imagePost" alt="" class="list-post-img-category" />
-    </a>
+    </router-link>
 
     <div class="category-post">
       <div class="post-meta">
@@ -36,8 +38,8 @@ console.log("Id : " + detaiId);
         <!-- <router-link :to="{ name: 'HomePage' }" :class="small === 'mall' ? 'title-mall' : 'categori-title-post'">{{
     title }}</router-link> -->
         <router-link :to="{
-    name: 'DetailPage', params: { id: `${detaiId}` }
-  }" :class="small === 'mall' ? 'title-mall' : 'categori-title-post'">{{ title }}</router-link>
+          name: 'DetailPage', params: { id: `${detaiId}` }
+        }" :class="small === 'mall' ? 'title-mall' : 'categori-title-post'">{{ title }}</router-link>
       </h3>
 
       <p class=" list-content">
@@ -77,7 +79,7 @@ console.log("Id : " + detaiId);
   /* height: auto; */
   max-height: 100%;
   vertical-align: middle;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 
 .title-mall {
@@ -140,5 +142,33 @@ console.log("Id : " + detaiId);
 
 .h3-hiden {
   display: none;
+}
+
+@media (max-width:767px) {
+  .list-pots-category {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .list-post-image {
+    width: 100%;
+    flex: auto;
+    margin: 10px 0;
+  }
+
+  .list-content {
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .list-post-img-category {
+    border-radius: 10px
+  }
+
+  .post-comments {
+    width: 90%;
+  }
 }
 </style>

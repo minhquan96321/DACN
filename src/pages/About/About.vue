@@ -167,4 +167,31 @@ Fugit eaque illum blanditiis, quo exercitationem maiores autem laudantium unde e
     border-radius: 50%;
   }
 }
+
+@media(max-width: 767px) {
+  .our-team-title {
+    width: 100%;
+  }
+
+  .our-team-about {
+    padding-left: 12px;
+    padding-right: 12px
+  }
+
+  .abou-author {
+    display: block;
+  }
+
+  .image-author {
+    border-radius: 50%;
+  }
+
+  .author {
+    margin-bottom: 20px;
+  }
+
+  .name-author {
+    font-size: 18px
+  }
+}
 </style>

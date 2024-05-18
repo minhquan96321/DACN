@@ -6,13 +6,9 @@
       <div class="col-12" style="display: flex; width: 100%">
         <div class="swiper-slide">
           <div class="swiper-wrapper" style="">
-            <a
-              href=""
-              class="img-bg"
-              style="
+            <a href="" class="img-bg" style="
                 background-image: url(https://image.lag.vn/upload/news/22/04/05/black-clover-329-1_BIHB.jpg);
-              "
-            >
+              ">
               <div class="img-bg-inner">
                 <h2>
                   Yếu đuối không phải là một nhục nhã nhưng không khắc phục nó
@@ -30,7 +26,7 @@
     </div>
   </section>
 
-  
+
 </template>
 
 <style scoped>
@@ -97,5 +93,11 @@
 .img-bg .img-bg-inner p {
   color: #ffffff;
   font-family: "EB Garamond", serif;
+}
+
+@media (max-width: 768px) {
+  .img-bg {
+    display: none
+  }
 }
 </style>

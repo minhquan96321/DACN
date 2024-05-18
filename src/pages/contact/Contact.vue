@@ -198,5 +198,15 @@ onMounted(() => {
     max-width: 1320px;
   }
 }
+
+@media (max-width: 767px) {
+  .contact-method {
+    display: block
+  }
+
+  .row-submit {
+    display: block
+  }
+}
 </style>
 @/store/fecthAPI

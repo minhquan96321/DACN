@@ -36,8 +36,7 @@ const categorisation = ref([
             <ul class="navigation-navbar">
               <li v-for="(list, index) in navigation" :key="index">
                 <a href="">
-                  <i class="fa-sharp fa-thin fa-angle-right bi-icon"></i
-                  ><span>{{ list }}</span>
+                  <i class="fa-sharp fa-thin fa-angle-right bi-icon"></i><span>{{ list }}</span>
                 </a>
               </li>
             </ul>
@@ -47,8 +46,7 @@ const categorisation = ref([
             <ul class="navigation-navbar">
               <li v-for="(list, index) in categorisation" :key="index">
                 <a href="">
-                  <i class="fa-sharp fa-thin fa-angle-right bi-icon"></i
-                  ><span>{{ list }}</span>
+                  <i class="fa-sharp fa-thin fa-angle-right bi-icon"></i><span>{{ list }}</span>
                 </a>
               </li>
             </ul>
@@ -59,20 +57,15 @@ const categorisation = ref([
           <ul class="footer-links">
             <li>
               <a href="" class="recent-post">
-                <img
-                  src="https://i.pinimg.com/originals/d9/b8/3a/d9b83aa1a08be3e46ebb47254db8cf75.jpg"
-                  alt="lỗi"
-                  class="img-recent"
-                />
+                <img src="https://i.pinimg.com/originals/d9/b8/3a/d9b83aa1a08be3e46ebb47254db8cf75.jpg" alt="lỗi"
+                  class="img-recent" />
                 <div>
                   <div class="recent-meta">
                     <span class="date">Culture</span>
                     <span class="mx-1">•</span>
                     <span>MAR 19th '24</span>
                   </div>
-                  <span class="recent-titile"
-                    >5 Great Startup Tips for Female Founders</span
-                  >
+                  <span class="recent-titile">5 Great Startup Tips for Female Founders</span>
                 </div>
               </a>
             </li>
@@ -223,11 +216,13 @@ const categorisation = ref([
 
 
 @media (min-width: 1400px) {
+
   .about-path,
   .about-zenblog,
   .recent-posts {
     width: 33.33333%;
   }
+
   .about-path-categories,
   .about-path-navigation {
     width: 50%;
@@ -236,6 +231,33 @@ const categorisation = ref([
   .social-network,
   .company-legal {
     width: 50%;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    display: flex;
+    flex-wrap: wrap
+  }
+
+  .about-zenblog {
+    margin-bottom: 30px
+  }
+
+  .about-path {
+    width: 100%;
+  }
+
+  .about-path-categories,
+  .about-path-navigation {
+    width: 50%;
+  }
+
+  .footer-legal {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 20px 0;
   }
 }
 </style>
