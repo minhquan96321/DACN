@@ -19,7 +19,7 @@ const itemtrending = computed(() => {
   return culture[0]
 })
 
-console.log(itemtrending)
+// console.log(itemtrending)
 
 const items = computed(() => {
   return culture[1]
@@ -50,7 +50,7 @@ const outstanding = computed(() => {
             <!-- {{ items.titleBlog }} -->
             <div class="culture-list-post blog-post-emtry">
               <div class="culture-post-one list-post-one">
-                <ListPost :title="items?.titleBlog" small="mall" :author="items?.nameAuthor" :content="items?.content"
+                <ListPost :title="items?.titleBlog"  :author="items?.nameAuthor" :content="items?.content"
                   :imageTrending="items?.image?.blogUrl" imgaeA="true" :category="items?.categori.title"
                   :day="getTimeAgo(items?.createdAt)" :detaiId="items?._id" />
               </div>

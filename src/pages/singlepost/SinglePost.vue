@@ -7,6 +7,7 @@ import { userDetailsStore } from "@/store/fecthAPI"
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { getTimeAgo, } from "@/assets/js/dayTime.js"
+import HederFooter from "@/layout/HederFooter.vue";
 
 
 const detailStore = userDetailsStore();
@@ -143,106 +144,106 @@ console.log("DetailsData" + dataDetails.value)
 </script>
 
 <template>
-  <Hearder />
+  <!-- <Hearder /> -->
 
-  <div class="singlepost-container">
-    <div class="singlepost-container-body">
-      <div class="singlepost-content">
-        <div class="post-meta">
-          <span class="date">{{ dataDetails.categori?.title }}</span>
-          <span class="mx-1">•</span>
-          <span>{{ getTimeAgo(dataDetails?.createdAt) }}</span>
-        </div>
-
-        <h1 class="title-singlepost">
-          {{ dataDetails?.titleBlog }}
-        </h1>
-
-        <figure class="figure-img">
-          <img :src="dataDetails?.image?.blogUrl" alt="" class="img-fluid" />
-        </figure>
-
-        <p class="singlepost-content-image">
-          {{ dataDetails?.content }}
-        </p>
-
-        <form class="comments" @submit.prevent="handleclick">
-          <h5 class="comments-titile">{{ dataComents.length }} Comments</h5>
-
-          <div class="author-comments" v-for="(coment, index) in dataComents ">
-
-            <div class="avtar-author">
-              <img src="https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-meo-con-khung-long.jpg" alt=""
-                class="avatar" />
-            </div>
-
-            <div class="post-comments">
-              <h6 class="name-author">{{ coment.author }}</h6>
-              <p class="review-comments">
-                {{ coment.message }}
-              </p>
-
-              <div v-if="coment.image" class="comment-photo">
-                <img :src="coment.image" class="photo-images">
-              </div>
-
-              <div class="like-comet">
-                <span class="day-time">
-                  {{ getTimeAgo(coment.createdAt) }}
-                </span>
-
-                <span>
-                  <i class="fa-light fa-thumbs-up like-icon"></i>
-                </span>
-              </div>
-            </div>
+  <HederFooter>
+    <div class="singlepost-container">
+      <div class="singlepost-container-body">
+        <div class="singlepost-content">
+          <div class="post-meta">
+            <span class="date">{{ dataDetails.categori?.title }}</span>
+            <span class="mx-1">•</span>
+            <span>{{ getTimeAgo(dataDetails?.createdAt) }}</span>
           </div>
 
+          <h1 class="title-singlepost">
+            {{ dataDetails?.titleBlog }}
+          </h1>
 
+          <figure class="figure-img">
+            <img :src="dataDetails?.image?.blogUrl" alt="" class="img-fluid" />
+          </figure>
 
-          <div class=" post-coment-submit">
-            <div class="leave-comment">
-              <h5 class="comment-title">Leave a Comment</h5>
+          <p class="singlepost-content-image">
+            {{ dataDetails?.content }}
+          </p>
 
-              <div class="row-submit">
-                <div class="form-input">
-                  <input type="text" v-model="comments.author" name=" Name" placeholder="Your Name"
-                    class="form-control" />
-                </div>
+          <form class="comments" @submit.prevent="handleclick">
+            <h5 class="comments-titile">{{ dataComents.length }} Comments</h5>
 
-                <div class="form-input">
-                  <input type="text" v-model="comments.email" name="email" placeholder="Your Email"
-                    class="form-control" />
-                </div>
+            <div class="author-comments" v-for="(coment, index) in dataComents ">
+
+              <div class="avtar-author">
+                <img src="https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-meo-con-khung-long.jpg" alt=""
+                  class="avatar" />
               </div>
 
-              <div class="form-input">
-                <div class="message">
-                  <textarea cols="120" v-model="comments.message" class="form-control createPost" name="message"
-                    rows="5" placeholder="Message"></textarea>
-                  <div class="div-image" v-for="( img, key  ) of  imageShow ">
-                    <img class="imagePath" :src="img" alt="">
+              <div class="post-comments">
+                <h6 class="name-author">{{ coment.author }}</h6>
+                <p class="review-comments">
+                  {{ coment.message }}
+                </p>
+
+                <div v-if="coment.image" class="comment-photo">
+                  <img :src="coment.image" class="photo-images">
+                </div>
+
+                <div class="like-comet">
+                  <span class="day-time">
+                    {{ getTimeAgo(coment.createdAt) }}
+                  </span>
+
+                  <span>
+                    <i class="fa-light fa-thumbs-up like-icon"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class=" post-coment-submit">
+              <div class="leave-comment">
+                <h5 class="comment-title">Leave a Comment</h5>
+
+                <div class="row-submit">
+                  <div class="form-input">
+                    <input type="text" v-model="comments.author" name=" Name" placeholder="Your Name"
+                      class="form-control" />
+                  </div>
+
+                  <div class="form-input">
+                    <input type="text" v-model="comments.email" name="email" placeholder="Your Email"
+                      class="form-control" />
                   </div>
                 </div>
-                <input type="file" @change="handleFile" style="display: none; " id="file">
-                <label class="file-img" for="file">
-                  <i class="fa-regular fa-circle-plus icon-size "></i>
-                </label>
+
+                <div class="form-input">
+                  <div class="message">
+                    <textarea cols="120" v-model="comments.message" class="form-control createPost" name="message"
+                      rows="5" placeholder="Message"></textarea>
+                    <div class="div-image" v-for="( img, key  ) of  imageShow ">
+                      <img class="imagePath" :src="img" alt="">
+                    </div>
+                  </div>
+                  <input type="file" @change="handleFile" style="display: none; " id="file">
+                  <label class="file-img" for="file">
+                    <i class="fa-regular fa-circle-plus icon-size "></i>
+                  </label>
+                </div>
+                <input class="send-message" type="submit" value="Post comment " />
+                <!-- <div class="button-submit"></div> -->
               </div>
-
-
-
-              <input class="send-message" type="submit" value="Post comment " />
-              <!-- <div class="button-submit"></div> -->
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
+        <div class="singlepost-navbar"></div>
       </div>
-      <div class="singlepost-navbar"></div>
     </div>
-  </div>
+  </HederFooter>
 
-  <Footer />
+
+  <!-- <Footer /> -->
 </template>
 
 <style scoped>

@@ -1,12 +1,15 @@
 <script setup>
-import { ref } from "vue";
-
+import { ref, onMounted, watchEffect } from "vue";
+import { useBlogStore } from "@/store/fecthAPI";
+// import debounce from 'lodash/debounce';
 // let navbarLists = ref(["Culture", "Business", "Lifestyle"]);
-
+const blogStore = useBlogStore()
 const sibarMenu = ref(false)
 const seemore = ref(false)
 const iconArrow = ref("fa-sharp fa-solid fa-angle-down")
-
+const searchResults = ref([]);
+const search = ref(false);
+let input = ref("");
 const handlSibarModal = () => {
   sibarMenu.value = true
 }
@@ -25,6 +28,37 @@ const handSeeMore = () => {
     iconArrow.value = "fa-sharp fa-solid fa-angle-down"
   }
 }
+
+const handlSearch = () => {
+  search.value = true;
+}
+
+const closeSearch = () => {
+  search.value = false
+  input.value = ""
+}
+
+watchEffect(() => {
+  searchResults.value = blogStore.$state.blogdata;
+  console.log('searchResults.value :', searchResults.value);
+
+})
+
+// tìm kiếm
+onMounted(async () => {
+  await blogStore.getBlog()
+})
+
+const fruits = ["apple", "banana", "orange"];
+const filteredList = () => {
+  return searchResults.value.filter((fruit) =>
+    // console.log("fruit", fruit.titleBlog)
+    fruit.titleBlog.toLowerCase().includes(input.value.toLowerCase())
+  );
+}
+
+
+
 </script>
 
 <template>
@@ -71,7 +105,23 @@ const handSeeMore = () => {
         </ul>
       </navbar>
 
-      <div class="position-relative">
+
+      <div v-if="search">
+        <div class="searchPost">
+          <input class="inputSearch" v-model="input" type="text" name="search" placeholder="Search">
+          <span @click.prevent="closeSearch" class="bi-close bi-icon"><i class="fa-sharp fa-light fa-xmark"></i></span>
+        </div>
+
+        <div class="search-post">
+          <div class="item fruit" v-for="fruit in filteredList()" :key="fruit">
+            <router-link :to="{
+              name: 'DetailPage', params: { id: `${fruit._id}` }
+            }" class="itemsearch">{{ fruit.titleBlog }}</router-link>
+          </div>
+        </div>
+      </div>
+
+      <div v-else class="position-relative">
         <a href="">
           <span class="bi-facebook bi-icon"><i class="fa-brands fa-facebook"></i>
           </span>
@@ -82,7 +132,9 @@ const handSeeMore = () => {
         <a href="">
           <span class="bi-intagram bi-icon"><i class="fa-brands fa-instagram"></i></span>
         </a>
-        <span class="bi-search bi-icon"><i class="fa-sharp fa-thin fa-magnifying-glass"></i></span>
+        <span @click.prevent="handlSearch" class="bi-search bi-icon"><i
+            class="fa-sharp fa-thin fa-magnifying-glass"></i></span>
+
         <span class="bi-menu bi-icon" @click.prevent="handlSibarModal"><i class="fa-solid fa-bars icon-menu"></i></span>
       </div>
     </div>
@@ -308,6 +360,59 @@ const handSeeMore = () => {
 .icon-xmark {
   padding: 10px
 }
+
+.searchPost {
+  position: relative;
+  padding: 6px;
+  border: 1px solid #a6a6a7;
+  border-radius: 8px;
+}
+
+.inputSearch {
+  padding: 8px;
+  border: 0px;
+  border-radius: 8px;
+}
+
+.bi-search {
+  cursor: pointer;
+  user-select: none;
+}
+
+.bi-close {
+  padding: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.item {
+  width: 350px;
+  margin: 0 auto 10px auto;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+
+}
+
+.fruit {
+  background-color: rgb(97, 62, 252);
+  cursor: pointer;
+}
+
+.search-post {
+  position: absolute;
+  margin-top: 10px;
+  height: 50px;
+}
+
+.itemsearch {
+  color: #fff;
+  text-decoration: none;
+}
+
+
 
 @media (max-width: 1400px) {
   .container {

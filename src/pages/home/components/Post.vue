@@ -3,7 +3,7 @@ import Banner from "./Banner.vue";
 import Culture from "./Culture.vue";
 import Business from "./Business.vue";
 import Lifestyle from "./Lifestyle.vue";
-import { ref, onMounted, watchEffect, reactive } from "vue";
+import { ref, onMounted, watchEffect } from "vue";
 import { useBlogStore } from "@/store/fecthAPI";
 
 const blogStore = useBlogStore();
@@ -26,6 +26,7 @@ watchEffect(() => {
   }
 
 })
+
 
 
 onMounted(async () => {

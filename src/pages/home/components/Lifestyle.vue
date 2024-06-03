@@ -43,7 +43,7 @@ const outstanding = computed(() => {
 
                 <div class="lifestyle-list-post blog-post-emtry">
                     <div class="lifestyle-list-one list-post-one">
-                        <ListPost :title="items?.titleBlog" small="mall" :author="items?.nameAuthor"
+                        <ListPost :title="items?.titleBlog"  :author="items?.nameAuthor"
                             :content="items?.content" :imageTrending="items?.image?.blogUrl" imgaeA="true"
                             :category="items?.categori.title" :day="getTimeAgo(items?.createdAt)"
                             :detaiId="items?._id" />

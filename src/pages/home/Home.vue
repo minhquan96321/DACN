@@ -2,7 +2,6 @@
 import Hearder from "@/components/header/Hearder.vue";
 import Post from "./components/Post.vue";
 import Footer from "@/components/footer/Footer.vue";
-// import Blog from "./components/Blog.vue";
 
 
 </script>
@@ -10,7 +9,6 @@ import Footer from "@/components/footer/Footer.vue";
 <template>
   <Hearder />
   <Post />
-  <!-- <Blog /> -->
   <Footer />
 
 

@@ -139,6 +139,7 @@ export const useBlogStore = defineStore("Blog", {
     pagedata: [],
     status: false,
     message: "",
+    serachPot: [],
   }),
   actions: {
     async createBlog(blog = {}) {
@@ -164,7 +165,7 @@ export const useBlogStore = defineStore("Blog", {
         // console.log("blog : " + response.data.message);
         this.blogdata = response.data.message;
         // console.log("blog : " + this.blogdata);
-      } catch (error) { }
+      } catch (error) {}
     },
 
     // async getPageBlog(page, limit) {
@@ -212,6 +213,22 @@ export const useBlogStore = defineStore("Blog", {
       } catch (error) {
         // console.log(error);
         this.status = error.response.data.success;
+      }
+    },
+
+    async serachPot(newKeyword = {}) {
+      console.log("keysẻar :", newKeyword);
+
+      try {
+        // const response = await axios.get(`${url}/blog/search-blog/${key}`);
+        // this.serachPot = response?.data.message;
+        const response = await axios.get(
+          `${url}/blog/search-blog/${newKeyword}`
+        );
+        this.serachPot = response?.data.message;
+        console.log("this.serachPot :", this.serachPot);
+      } catch (error) {
+        console.log(error);
       }
     },
   },
