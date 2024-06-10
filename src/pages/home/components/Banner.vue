@@ -11,12 +11,10 @@
               ">
               <div class="img-bg-inner">
                 <h2>
-                  Yếu đuối không phải là một nhục nhã nhưng không khắc phục nó
-                  mới thật sự là ô nhục
+                  11 Work From Home Part-Time Jobs You Can Do Now
                 </h2>
                 <p>
-                  Nếu cậu không thích số phận, đừng chấp nhận nó. Thay vào đó
-                  hãy dũng cẩm thay đổi nó theo ý của mình...
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus repudiandae, inventore
                 </p>
               </div>
             </a>

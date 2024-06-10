@@ -31,6 +31,7 @@ const outstanding = computed(() => {
 
     <div class="blog-lifestyle blog-bottom">
         <ListTitle :category="itemtrending?.categori.title" seeCategory="SEE ALL LIFESTYLE" />
+        
         <div class="lifestyle-emtry blog-emtry">
             <div class="blog-emtry-lifestyle blog-emtry-post">
                 <div class="lifestyle-outstanding outstanding">

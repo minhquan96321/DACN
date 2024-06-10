@@ -26,7 +26,7 @@ const listSidebar = ref([
 const removeExpiredTokeb = () => {
     if (token) {
         const payload = JSON.parse(atob(token.split(".")[1]));
-        console.log(payload.exp)
+        // console.log(payload.exp)
         if (currentTime > payload.exp) {
             localStorage.removeItem("Token");
             router.push({ name: "LoginPage" })

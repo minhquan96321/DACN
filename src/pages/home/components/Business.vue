@@ -31,6 +31,7 @@ const outstanding = computed(() => {
 <template>
     <div class="blog-business blog-bottom">
         <ListTitle category="Business" seeCategory="SEE ALL Business" />
+        
         <div class="business-emtry">
             <div class="blog-emtry-business">
                 <div class="business-outstanding">

@@ -83,7 +83,7 @@ const confirmAction = async () => {
                                 <th>Title</th>
                                 <th>Satus</th>
                                 <th>Date of writing</th>
-                                <th>Date of writing</th>
+                                <th>Toolbar</th>
                             </tr>
                             <tr v-for="(post, index) in dataPage" :key="index">
                                 <td>

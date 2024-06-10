@@ -49,7 +49,8 @@ onMounted(async () => {
   await blogStore.getBlog()
 })
 
-const fruits = ["apple", "banana", "orange"];
+
+
 const filteredList = () => {
   return searchResults.value.filter((fruit) =>
     // console.log("fruit", fruit.titleBlog)
@@ -92,6 +93,10 @@ const filteredList = () => {
                 </li>
                 <li>
                   <router-link :to="{ name: 'LifestylePage' }">Lifestyle</router-link>
+                </li>
+
+                <li>
+                  <router-link :to="{ name: 'LifestylePage' }">ABC</router-link>
                 </li>
               </ul>
             </span>

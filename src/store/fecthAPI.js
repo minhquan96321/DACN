@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-// let url = "http://localhost:8080/api";
-let url = "https://project-go-evsc.onrender.com/api";
+let url = "http://localhost:8080/api";
+// let url = "https://project-go-evsc.onrender.com/api";
 const token = localStorage.getItem("Token");
 
 export const useFecthStore = defineStore("Contact", {
@@ -195,6 +195,7 @@ export const useBlogStore = defineStore("Blog", {
       } catch (error) {
         this.status = error.response?.data.success;
         this.message = error.response?.data.message;
+        console.log("Lỗi tiêu đề", this.message);
       }
     },
 
