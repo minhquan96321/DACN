@@ -25,7 +25,7 @@ const handleSubscribe = () => {
 </script>
 
 <template>
-  <Hearder />
+  <!-- <Hearder /> -->
   <div class="notification-wrapper">
     <button
       @click="handleSubscribe"
@@ -35,8 +35,8 @@ const handleSubscribe = () => {
       {{ isSubscribed ? "Hủy đăng ký thông báo" : "Đăng ký nhận thông báo" }}
     </button>
   </div>
-  <Post />
-  <Footer />
+  <!-- <Post />
+  <Footer /> -->
 </template>
 
 <style>
