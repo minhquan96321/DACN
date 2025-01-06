@@ -2,32 +2,48 @@
 import Hearder from "@/components/header/Hearder.vue";
 import Post from "./components/Post.vue";
 import Footer from "@/components/footer/Footer.vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { initPushAlert } from "./pushAlert.js"; // Nhập hàm initPushAlert
 
 const isSubscribed = ref(false);
 
-// Hàm đăng ký thông báo
-function subscribeAlert() {
-  console.log("Clicking subscribe button");
-  if (typeof _pa !== "undefined") {
-    _pa.subscribe();
-    console.log("Called _pa.subscribe()");
+// Hàm toggle đăng ký
+const toggleSubscription = () => {
+  if (isSubscribed.value) {
+    pushalertbyiw.unsubscribe(); // Hủy đăng ký
   } else {
-    console.log("_pa is not defined yet");
+    pushalertbyiw.subscribe(); // Đăng ký
   }
-}
+};
 
-// Check status
-if (typeof _pa !== "undefined") {
-  console.log("_pa status:", _pa.status);
-}
+// Sử dụng onReady callback của PushAlert
+onMounted(() => {
+  initPushAlert(); // Khởi tạo PushAlert khi component được mount
+
+  // Kiểm tra trạng thái đăng ký ban đầu
+  isSubscribed.value = pushalertbyiw.isSubscribed();
+
+  // Lắng nghe sự kiện onSubscribe và onUnsubscribe để cập nhật trạng thái
+  pushalertbyiw.addEventListener("onSubscribe", () => {
+    isSubscribed.value = true;
+  });
+
+  pushalertbyiw.addEventListener("onUnsubscribe", () => {
+    isSubscribed.value = false;
+  });
+});
 </script>
+
 <template>
   <Hearder />
   <div class="notification-wrapper">
-    <button @click="subscribeAlert" class="notification-btn">
+    <button
+      @click="toggleSubscription"
+      class="notification-btn"
+      :class="{ subscribed: isSubscribed }"
+    >
       <i class="fas fa-bell"></i>
-      Đăng ký nhận thông báo
+      {{ isSubscribed ? "Hủy đăng ký thông báo" : "Đăng ký nhận thông báo" }}
     </button>
   </div>
   <Post />
@@ -35,59 +51,6 @@ if (typeof _pa !== "undefined") {
 </template>
 
 <style>
-main {
-  margin-top: 90px;
-}
-
-.post-meta {
-  font-size: 12px;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: #999994;
-  margin-bottom: 10px;
-  letter-spacing: 2px;
-}
-
-.mx-1 {
-  margin-right: 0.25rem !important;
-  margin-left: 0.25rem !important;
-}
-
-.pagination {
-  text-align: center;
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-}
-
-.pagination-container {
-  display: flex;
-  column-gap: 10px;
-}
-
-.paginate-buttons {
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-  cursor: pointer;
-  background-color: rgb(242, 242, 242);
-  border: 1px solid rgb(217, 217, 217);
-  color: black;
-}
-
-.paginate-buttons:hover {
-  background-color: #d8d8d8;
-}
-
-.active-page {
-  background-color: #3498db;
-  border: 1px solid #3498db;
-  color: white;
-}
-
-.active-page:hover {
-  background-color: #2988c8;
-}
-
 .notification-wrapper {
   display: flex;
   justify-content: center;
@@ -126,55 +89,5 @@ main {
 
 .notification-btn i {
   font-size: 16px;
-}
-
-/* Giữ lại các styles hiện có */
-.post-meta {
-  font-size: 12px;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: #999994;
-  margin-bottom: 10px;
-  letter-spacing: 2px;
-}
-
-.mx-1 {
-  margin-right: 0.25rem !important;
-  margin-left: 0.25rem !important;
-}
-
-.pagination {
-  text-align: center;
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-}
-
-.pagination-container {
-  display: flex;
-  column-gap: 10px;
-}
-
-.paginate-buttons {
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-  cursor: pointer;
-  background-color: rgb(242, 242, 242);
-  border: 1px solid rgb(217, 217, 217);
-  color: black;
-}
-
-.paginate-buttons:hover {
-  background-color: #d8d8d8;
-}
-
-.active-page {
-  background-color: #3498db;
-  border: 1px solid #3498db;
-  color: white;
-}
-
-.active-page:hover {
-  background-color: #2988c8;
 }
 </style>
