@@ -15,6 +15,7 @@ onMounted(() => {
 });
 
 const handleSubscribe = () => {
+  console.log("handleSubscribe", isSubscribed.value);
   if (isSubscribed.value) {
     unsubscribeUser();
   } else {
