@@ -7,6 +7,7 @@ import { ref, onMounted } from "vue";
 const isSubscribed = ref(false);
 
 const subscribePushAlert = () => {
+  console.log("kiểm tra", window.pushalert);
   if (window.pushalert) {
     window.pushalert.subscribe();
   }
@@ -102,7 +103,7 @@ main {
   display: flex;
   justify-content: center;
   padding: 20px;
-  margin-top: 20px;
+  margin-top: 95px;
 }
 
 .notification-btn {
