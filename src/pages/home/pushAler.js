@@ -1,3 +1,5 @@
+pushAler.js(1 - 144);
+
 export function initPushAlert() {
   console.log("Initializing PushAlert...");
 
@@ -53,7 +55,7 @@ export function initPushAlert() {
     "onFailure",
     function (result) {
       console.log("Subscription Failed:", result);
-      if (result.reason === "blocked") {
+      if (result.status == -1) {
         showBlockMessage();
       }
     },
