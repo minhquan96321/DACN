@@ -5,6 +5,7 @@ import Footer from "@/components/footer/Footer.vue";
 import { ref, onMounted } from "vue";
 import { pushalertbyiw } from "./pushAler";
 
+console.log("Kiểm tra nào", window.pushalertbyiw);
 const isSubscribed = ref(false);
 
 // Hàm toggle đăng ký
@@ -19,14 +20,16 @@ const toggleSubscription = () => {
 // Sử dụng onMounted callback của PushAlert
 onMounted(() => {
   // Kiểm tra trạng thái đăng ký ban đầu
-  isSubscribed.value = pushalertbyiw.isSubscribed();
+  isSubscribed.value = pushalertbyiw.isSubscribed;
 
   // Lắng nghe sự kiện onSubscribe và onUnsubscribe để cập nhật trạng thái
   pushalertbyiw.addEventListener("onSubscribe", () => {
+    console.log("Subscribed2312323");
     isSubscribed.value = true;
   });
 
   pushalertbyiw.addEventListener("onUnsubscribe", () => {
+    console.log("Unsubscribed2312323");
     isSubscribed.value = false;
   });
 });
