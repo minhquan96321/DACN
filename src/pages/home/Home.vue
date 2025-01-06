@@ -6,34 +6,35 @@ import { ref } from "vue";
 
 const isSubscribed = ref(false);
 
-const subscribePushAlert = () => {
-  pushalertbyiw.subscribe();
-};
+(function (d, t) {
+  console.log("Initializing PushAlert...");
+  var g = d.createElement(t),
+    s = d.getElementsByTagName(t)[0];
+  g.src =
+    "https://cdn.pushalert.co/integrate_2a291e1ba34b257b0dab01b90160312e.js";
+  s.parentNode.insertBefore(g, s);
+})(document, "script");
 
-// Sử dụng onReady callback của PushAlert
-pushalertbyiw.onReady(function () {
-  // Kiểm tra trạng thái đăng ký
-  isSubscribed.value = pushalertbyiw.isSubscribed();
-  const deviceId = pushalertbyiw.getUserId();
-  console.log("Device ID của người dùng:", deviceId);
-  // Thêm event listeners
-  pushalertbyiw.addEventListener("onSubscribe", () => {
+// Kiểm tra trạng thái
+window._pa = window._pa || {};
+console.log("Current _pa:", window._pa);
+
+document.addEventListener("pushalert", function (e) {
+  console.log("PushAlert Event:", e.type, e);
+  if (e.type === "subscribe") {
+    console.log("User subscribed!");
     isSubscribed.value = true;
-  });
-
-  pushalertbyiw.addEventListener("onUnsubscribe", () => {
+  }
+  if (e.type === "unsubscribe") {
+    console.log("User unsubscribed!");
     isSubscribed.value = false;
-  });
+  }
 });
 </script>
-
 <template>
   <Hearder />
   <div class="notification-wrapper">
-    <button
-      @click="subscribePushAlert"
-      :class="['notification-btn', { subscribed: isSubscribed }]"
-    >
+    <button class="notification-btn">
       <i class="fas fa-bell"></i>
       {{ isSubscribed ? "Đã đăng ký thông báo" : "Đăng ký nhận thông báo" }}
     </button>
