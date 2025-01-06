@@ -2,29 +2,34 @@
 import Hearder from "@/components/header/Hearder.vue";
 import Post from "./components/Post.vue";
 import Footer from "@/components/footer/Footer.vue";
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted } from "vue";
 import {
   initPushAlert,
   subscribeToPushAlert,
-  getSubscriptionStatus,
+  checkSubscriptionStatus,
 } from "./pushAler";
 
 const isSubscribed = ref(false);
+const subsInfo = ref(null);
 
 onMounted(() => {
   initPushAlert();
-  // Kiểm tra trạng thái mỗi 1 giây
+
+  // Kiểm tra trạng thái subscription định kỳ
   const checkStatus = setInterval(() => {
-    isSubscribed.value = getSubscriptionStatus();
-    if (isSubscribed.value) {
-      clearInterval(checkStatus);
+    const info = checkSubscriptionStatus();
+    if (info) {
+      subsInfo.value = info;
+      isSubscribed.value = info.isSubscribed;
+      if (isSubscribed.value) {
+        clearInterval(checkStatus);
+      }
     }
   }, 1000);
 });
 
 const handleSubscribe = () => {
   if (!isSubscribed.value) {
-    console.log(2321321312123);
     subscribeToPushAlert();
   }
 };
@@ -40,6 +45,13 @@ const handleSubscribe = () => {
       <i class="fas fa-bell"></i>
       {{ isSubscribed ? "Đã đăng ký thông báo" : "Đăng ký nhận thông báo" }}
     </button>
+
+    <!-- Hiển thị thông tin subscription (có thể ẩn trong production) -->
+    <div v-if="subsInfo" class="subscription-info">
+      <p>Device: {{ subsInfo.deviceType }}</p>
+      <p>Browser: {{ subsInfo.browserType }}</p>
+      <p>ID: {{ subsInfo.subscriberId }}</p>
+    </div>
   </div>
   <!-- <Post />
   <Footer /> -->
@@ -48,9 +60,17 @@ const handleSubscribe = () => {
 <style>
 .notification-wrapper {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
   margin-top: 20px;
+}
+
+.subscription-info {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
 }
 
 .notification-btn {

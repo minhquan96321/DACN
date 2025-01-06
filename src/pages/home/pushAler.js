@@ -1,5 +1,3 @@
-let pushAlertStatus = false;
-
 export function initPushAlert() {
   console.log("Initializing PushAlert...");
 
@@ -14,7 +12,7 @@ export function initPushAlert() {
     "onSuccess",
     function (result) {
       console.log("Subscription Success:", result);
-      pushAlertStatus = true;
+      checkSubscriptionStatus();
     },
   ]);
 
@@ -23,29 +21,43 @@ export function initPushAlert() {
     "onFailure",
     function (result) {
       console.log("Subscription Failed:", result);
-      pushAlertStatus = false;
     },
   ]);
 }
 
 function onPAReady() {
   console.log("PushAlert Ready");
-  if (PushAlertCo && PushAlertCo.subs_id) {
-    console.log("User is subscribed with ID:", PushAlertCo.subs_id);
-    pushAlertStatus = true;
-    return true;
-  }
-  console.log("User is not subscribed");
-  pushAlertStatus = false;
-  return false;
+  checkSubscriptionStatus();
 }
 
-export function getSubscriptionStatus() {
-  return pushAlertStatus;
+export function checkSubscriptionStatus() {
+  (window.pushalertbyiw = window.pushalertbyiw || []).push([
+    "getSubsInfo",
+    function (result) {
+      console.log("Subscription Info:", result);
+      return {
+        isSubscribed: result.isPushEnabled,
+        subscriberId: result.subId,
+        browserType: result.browser_type,
+        deviceType: result.device_type,
+      };
+    },
+  ]);
 }
 
 export function subscribeToPushAlert() {
   if (window.pushalertbyiw) {
-    window.pushalertbyiw.push(["subscribe", {}]);
+    window.pushalertbyiw.push([
+      "subscribe",
+      {
+        successCallback: function () {
+          console.log("Subscribe callback success");
+          checkSubscriptionStatus();
+        },
+        errorCallback: function () {
+          console.log("Subscribe callback error");
+        },
+      },
+    ]);
   }
 }
