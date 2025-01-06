@@ -3,46 +3,32 @@ import Hearder from "@/components/header/Hearder.vue";
 import Post from "./components/Post.vue";
 import Footer from "@/components/footer/Footer.vue";
 import { ref, onMounted } from "vue";
-import { pushalertbyiw } from "./pushAler";
+import { initPushAlert, subscribeUser, unsubscribeUser } from "./pushAler";
 
-console.log("Kiểm tra nào", window.pushalertbyiw);
 const isSubscribed = ref(false);
 
-// Hàm toggle đăng ký
-const toggleSubscription = () => {
+onMounted(() => {
+  const result = initPushAlert();
+  if (result) {
+    isSubscribed.value = result.isSubscribed;
+  }
+});
+
+const handleSubscribe = () => {
   if (isSubscribed.value) {
-    pushalertbyiw.unsubscribe(); // Hủy đăng ký
+    unsubscribeUser();
   } else {
-    pushalertbyiw.subscribe(); // Đăng ký
+    subscribeUser();
   }
 };
-
-// Sử dụng onMounted callback của PushAlert
-onMounted(() => {
-  // Kiểm tra trạng thái đăng ký ban đầu
-  isSubscribed.value = pushalertbyiw.isSubscribed();
-  console.log("isSubscribed.value  :", isSubscribed.value);
-
-  // Lắng nghe sự kiện onSubscribe và onUnsubscribe để cập nhật trạng thái
-  pushalertbyiw.addEventListener("onSubscribe", () => {
-    console.log("Subscribed2312323");
-    isSubscribed.value = true;
-  });
-
-  pushalertbyiw.addEventListener("onUnsubscribe", () => {
-    console.log("Unsubscribed2312323");
-    isSubscribed.value = false;
-  });
-});
 </script>
 
 <template>
   <Hearder />
   <div class="notification-wrapper">
     <button
-      @click="toggleSubscription"
-      class="notification-btn"
-      :class="{ subscribed: isSubscribed }"
+      @click="handleSubscribe"
+      :class="['notification-btn', { subscribed: isSubscribed }]"
     >
       <i class="fas fa-bell"></i>
       {{ isSubscribed ? "Hủy đăng ký thông báo" : "Đăng ký nhận thông báo" }}
