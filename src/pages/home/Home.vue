@@ -21,6 +21,7 @@ const toggleSubscription = () => {
 onMounted(() => {
   // Kiểm tra trạng thái đăng ký ban đầu
   isSubscribed.value = pushalertbyiw.isSubscribed;
+  console.log("isSubscribed.value  :", isSubscribed.value);
 
   // Lắng nghe sự kiện onSubscribe và onUnsubscribe để cập nhật trạng thái
   pushalertbyiw.addEventListener("onSubscribe", () => {

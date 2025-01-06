@@ -3,63 +3,56 @@ import { ref, onMounted, watchEffect } from "vue";
 import { useBlogStore } from "@/store/fecthAPI";
 // import debounce from 'lodash/debounce';
 // let navbarLists = ref(["Culture", "Business", "Lifestyle"]);
-const blogStore = useBlogStore()
-const sibarMenu = ref(false)
-const seemore = ref(false)
-const iconArrow = ref("fa-sharp fa-solid fa-angle-down")
+const blogStore = useBlogStore();
+const sibarMenu = ref(false);
+const seemore = ref(false);
+const iconArrow = ref("fa-sharp fa-solid fa-angle-down");
 const searchResults = ref([]);
 const search = ref(false);
 let input = ref("");
 const handlSibarModal = () => {
-  sibarMenu.value = true
-}
+  sibarMenu.value = true;
+};
 
 const handlCloseModal = () => {
-  sibarMenu.value = false
-}
+  sibarMenu.value = false;
+};
 
 const handSeeMore = () => {
-  seemore.value != seemore.value
+  seemore.value != seemore.value;
   if (!seemore.value) {
     seemore.value = true;
     iconArrow.value = "fa-sharp fa-solid fa-angle-up";
   } else {
     seemore.value = false;
-    iconArrow.value = "fa-sharp fa-solid fa-angle-down"
+    iconArrow.value = "fa-sharp fa-solid fa-angle-down";
   }
-}
+};
 
 const handlSearch = () => {
   search.value = true;
-}
+};
 
 const closeSearch = () => {
-  search.value = false
-  input.value = ""
-}
+  search.value = false;
+  input.value = "";
+};
 
 watchEffect(() => {
   searchResults.value = blogStore.$state.blogdata;
-  console.log('searchResults.value :', searchResults.value);
-
-})
+});
 
 // tìm kiếm
 onMounted(async () => {
-  await blogStore.getBlog()
-})
-
-
+  await blogStore.getBlog();
+});
 
 const filteredList = () => {
   return searchResults.value.filter((fruit) =>
     // console.log("fruit", fruit.titleBlog)
     fruit.titleBlog.toLowerCase().includes(input.value.toLowerCase())
   );
-}
-
-
-
+};
 </script>
 
 <template>
@@ -86,13 +79,19 @@ const filteredList = () => {
               <router-link :to="{ name: 'CulturePage' }">Categori</router-link>
               <ul class="list">
                 <li>
-                  <router-link :to="{ name: 'CulturePage' }">Culture</router-link>
+                  <router-link :to="{ name: 'CulturePage' }"
+                    >Culture</router-link
+                  >
                 </li>
                 <li>
-                  <router-link :to="{ name: 'BusinessPage' }">Business</router-link>
+                  <router-link :to="{ name: 'BusinessPage' }"
+                    >Business</router-link
+                  >
                 </li>
                 <li>
-                  <router-link :to="{ name: 'LifestylePage' }">Lifestyle</router-link>
+                  <router-link :to="{ name: 'LifestylePage' }"
+                    >Lifestyle</router-link
+                  >
                 </li>
 
                 <li>
@@ -110,37 +109,57 @@ const filteredList = () => {
         </ul>
       </navbar>
 
-
       <div v-if="search">
         <div class="searchPost">
-          <input class="inputSearch" v-model="input" type="text" name="search" placeholder="Search">
-          <span @click.prevent="closeSearch" class="bi-close bi-icon"><i class="fa-sharp fa-light fa-xmark"></i></span>
+          <input
+            class="inputSearch"
+            v-model="input"
+            type="text"
+            name="search"
+            placeholder="Search"
+          />
+          <span @click.prevent="closeSearch" class="bi-close bi-icon"
+            ><i class="fa-sharp fa-light fa-xmark"></i
+          ></span>
         </div>
 
         <div class="search-post">
           <div class="item fruit" v-for="fruit in filteredList()" :key="fruit">
-            <router-link :to="{
-              name: 'DetailPage', params: { id: `${fruit._id}` }
-            }" class="itemsearch">{{ fruit.titleBlog }}</router-link>
+            <router-link
+              :to="{
+                name: 'DetailPage',
+                params: { id: `${fruit._id}` },
+              }"
+              class="itemsearch"
+              >{{ fruit.titleBlog }}</router-link
+            >
           </div>
         </div>
       </div>
 
       <div v-else class="position-relative">
         <a href="">
-          <span class="bi-facebook bi-icon"><i class="fa-brands fa-facebook"></i>
+          <span class="bi-facebook bi-icon"
+            ><i class="fa-brands fa-facebook"></i>
           </span>
         </a>
         <a href="">
-          <span class="bi-twitter bi-icon"><i class="fa-brands fa-x-twitter"></i></span>
+          <span class="bi-twitter bi-icon"
+            ><i class="fa-brands fa-x-twitter"></i
+          ></span>
         </a>
         <a href="">
-          <span class="bi-intagram bi-icon"><i class="fa-brands fa-instagram"></i></span>
+          <span class="bi-intagram bi-icon"
+            ><i class="fa-brands fa-instagram"></i
+          ></span>
         </a>
-        <span @click.prevent="handlSearch" class="bi-search bi-icon"><i
-            class="fa-sharp fa-thin fa-magnifying-glass"></i></span>
+        <span @click.prevent="handlSearch" class="bi-search bi-icon"
+          ><i class="fa-sharp fa-thin fa-magnifying-glass"></i
+        ></span>
 
-        <span class="bi-menu bi-icon" @click.prevent="handlSibarModal"><i class="fa-solid fa-bars icon-menu"></i></span>
+        <span class="bi-menu bi-icon" @click.prevent="handlSibarModal"
+          ><i class="fa-solid fa-bars icon-menu"></i
+        ></span>
       </div>
     </div>
   </div>
@@ -148,10 +167,14 @@ const filteredList = () => {
   <!-- <ModalSidebar :boolModal="sibarMenu" /> -->
   <div class="confirm-dialog" v-if="sibarMenu">
     <div class="dialog-content">
-      <div class="bi-xmark bi-icon" @click.prevent="handlCloseModal"><i class="fa-solid fa-xmark icon-xmark"></i></div>
+      <div class="bi-xmark bi-icon" @click.prevent="handlCloseModal">
+        <i class="fa-solid fa-xmark icon-xmark"></i>
+      </div>
       <ul class="sidebar-menu">
         <li class="sidebar-menu-child">
-          <router-link :to="{ name: 'HomePage' }" class="link_foder">Blog</router-link>
+          <router-link :to="{ name: 'HomePage' }" class="link_foder"
+            >Blog</router-link
+          >
         </li>
         <li class="sidebar-menu-child">
           <div class="sidebar-menu-child-categori" @click.prevent="handSeeMore">
@@ -161,21 +184,31 @@ const filteredList = () => {
 
           <ul class="categori_child" v-if="seemore">
             <li class="categoris_child_foder">
-              <router-link :to="{ name: 'CulturePage' }" class="link_foder">Culture</router-link>
+              <router-link :to="{ name: 'CulturePage' }" class="link_foder"
+                >Culture</router-link
+              >
             </li>
             <li class="categoris_child_foder">
-              <router-link :to="{ name: 'BusinessPage' }" class="link_foder">Business</router-link>
+              <router-link :to="{ name: 'BusinessPage' }" class="link_foder"
+                >Business</router-link
+              >
             </li>
             <li class="categoris_child_foder">
-              <router-link :to="{ name: 'LifestylePage' }" class="link_foder">Lifestyle</router-link>
+              <router-link :to="{ name: 'LifestylePage' }" class="link_foder"
+                >Lifestyle</router-link
+              >
             </li>
           </ul>
         </li>
         <li class="sidebar-menu-child">
-          <router-link :to="{ name: 'AboutPage' }" class="link_foder">About</router-link>
+          <router-link :to="{ name: 'AboutPage' }" class="link_foder"
+            >About</router-link
+          >
         </li>
         <li class="sidebar-menu-child">
-          <router-link :to="{ name: 'ContactPage' }" class="link_foder">Contact</router-link>
+          <router-link :to="{ name: 'ContactPage' }" class="link_foder"
+            >Contact</router-link
+          >
         </li>
       </ul>
     </div>
@@ -329,9 +362,9 @@ const filteredList = () => {
 
 .sidebar-menu-child {
   font-size: 18px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   margin-bottom: 20px;
-  padding: 5px
+  padding: 5px;
 }
 
 .sidebar-menu-child-categori {
@@ -347,7 +380,7 @@ const filteredList = () => {
 .categoris_child_foder {
   font-size: 16px;
   margin: 15px 0;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   padding: 10px 20px;
 }
 
@@ -363,7 +396,7 @@ const filteredList = () => {
 }
 
 .icon-xmark {
-  padding: 10px
+  padding: 10px;
 }
 
 .searchPost {
@@ -398,7 +431,6 @@ const filteredList = () => {
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-
 }
 
 .fruit {
@@ -417,19 +449,15 @@ const filteredList = () => {
   text-decoration: none;
 }
 
-
-
 @media (max-width: 1400px) {
   .container {
     max-width: 1320px;
   }
-
-
 }
 
 @media (max-width: 767px) {
   .navbar {
-    display: none
+    display: none;
   }
 
   .container {
