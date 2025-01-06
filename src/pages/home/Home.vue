@@ -3,7 +3,7 @@ import Hearder from "@/components/header/Hearder.vue";
 import Post from "./components/Post.vue";
 import Footer from "@/components/footer/Footer.vue";
 import { ref, onMounted } from "vue";
-import { initPushAlert } from "./pushAler"; // Nhập hàm initPushAlert
+import { pushalertbyiw } from "./pushAler";
 
 const isSubscribed = ref(false);
 
@@ -18,8 +18,6 @@ const toggleSubscription = () => {
 
 // Sử dụng onReady callback của PushAlert
 onMounted(() => {
-  initPushAlert(); // Khởi tạo PushAlert khi component được mount
-
   // Kiểm tra trạng thái đăng ký ban đầu
   isSubscribed.value = pushalertbyiw.isSubscribed();
 

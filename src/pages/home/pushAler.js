@@ -1,21 +1,21 @@
-export function initPushAlert() {
-  // Kiểm tra trạng thái đăng ký khi PushAlert đã sẵn sàng
-  pushalertbyiw.onReady(function () {
-    // Kiểm tra ID đăng ký
-    console.log(pushalertbyiw.subs_id); // In ra ID đăng ký hoặc trống nếu chưa đăng ký
-
-    // Nếu chưa đăng ký, thực hiện đăng ký
-    if (!pushalertbyiw.subs_id) {
-      pushalertbyiw.subscribe();
+// pushAlert.js
+export const pushalertbyiw = {
+  subscribe: () => {
+    console.log("Subscribed");
+    // Thực hiện đăng ký ở đây
+  },
+  unsubscribe: () => {
+    console.log("Unsubscribed");
+    // Thực hiện hủy đăng ký ở đây
+  },
+  isSubscribed: () => {
+    return false; // Trả về trạng thái đăng ký (true/false)
+  },
+  addEventListener: (event, callback) => {
+    if (event === "onSubscribe") {
+      callback(); // Giả sử sự kiện onSubscribe
+    } else if (event === "onUnsubscribe") {
+      callback(); // Giả sử sự kiện onUnsubscribe
     }
-  });
-
-  // Lắng nghe sự kiện đăng ký và hủy đăng ký
-  pushalertbyiw.addEventListener("onSubscribe", function () {
-    console.log("Người dùng đã đăng ký thông báo");
-  });
-
-  pushalertbyiw.addEventListener("onUnsubscribe", function () {
-    console.log("Người dùng đã hủy đăng ký thông báo");
-  });
-}
+  },
+};
