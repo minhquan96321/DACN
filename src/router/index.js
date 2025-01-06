@@ -12,6 +12,7 @@ import LoginAut from "@/pages/Auth/loginPage.vue";
 import HomeAdminPage from "@/pages/Auth/HomeAdmin.vue";
 import AddArticlePage from "@/pages/Auth/AddArticles.vue";
 import UpdatePage from "@/pages/Auth/UpdatePost.vue";
+import maqr from "@/pages/contact/MaQR.vue";
 
 const token = localStorage.getItem("Token");
 
@@ -59,6 +60,12 @@ const routes = [
     path: "/contact",
     name: "ContactPage",
     component: Contact,
+  },
+
+  {
+    path: "/QR",
+    name: "QRPage",
+    component: maqr,
   },
 
   {

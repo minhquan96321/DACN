@@ -71,6 +71,7 @@ const handleFile = (event) => {
     const files = event.target.files;
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
+        console.log(file)
         base64Encoder(file)
         if (file.type.startsWith("image/")) {
             const imageURL = URL.createObjectURL(file);
@@ -117,7 +118,7 @@ const handleclick = async () => {
             content: ""
         };
         imageSrc.value = null
-        
+
 
         toast.success("New article created successfully", {
             autoClose: 2000,

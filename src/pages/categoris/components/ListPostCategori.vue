@@ -40,7 +40,7 @@ console.log("Id : " + detaiId);
         <router-link :to="{
           name: 'DetailPage', params: { id: `${detaiId}` }
         }" :class="small === 'mall' ? 'title-mall' : 'categori-title-post'">{{ title }}</router-link>
-      </h3>
+      </h3>f
 
       <p class=" list-content">
         {{ content }}

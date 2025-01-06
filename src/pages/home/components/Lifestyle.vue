@@ -31,7 +31,7 @@ const outstanding = computed(() => {
 
     <div class="blog-lifestyle blog-bottom">
         <ListTitle :category="itemtrending?.categori.title" seeCategory="SEE ALL LIFESTYLE" />
-        
+
         <div class="lifestyle-emtry blog-emtry">
             <div class="blog-emtry-lifestyle blog-emtry-post">
                 <div class="lifestyle-outstanding outstanding">
@@ -44,17 +44,15 @@ const outstanding = computed(() => {
 
                 <div class="lifestyle-list-post blog-post-emtry">
                     <div class="lifestyle-list-one list-post-one">
-                        <ListPost :title="items?.titleBlog"  :author="items?.nameAuthor"
-                            :content="items?.content" :imageTrending="items?.image?.blogUrl" imgaeA="true"
-                            :category="items?.categori.title" :day="getTimeAgo(items?.createdAt)"
-                            :detaiId="items?._id" />
+                        <ListPost :title="items?.titleBlog" :author="items?.nameAuthor" :content="items?.content"
+                            :imageTrending="items?.image?.blogUrl" imgaeA="true" :category="items?.categori.title"
+                            :day="getTimeAgo(items?.createdAt)" :detaiId="items?._id" />
                     </div>
 
                     <div class="lifestyle-list-two list-post-two">
                         <ListPost :day="getTimeAgo(outstanding?.createdAt)" :category="outstanding?.categori.title"
-                            :content="outstanding?.content"
-                            :imageTrending="outstanding?.image?.blogUrl"
-                            imgaeA="true" title="How to Avoid Distraction and Stay Focused During Video Calls?"
+                            :content="outstanding?.content" :imageTrending="outstanding?.image?.blogUrl" imgaeA="true"
+                            title="How to Avoid Distraction and Stay Focused During Video Calls?"
                             :author="outstanding?.nameAuthor"
                             imgAuthor="https://e0.pxfuel.com/wallpapers/513/637/desktop-wallpaper-one-punch-man-saitama-8k-8k-japanese.jpg"
                             :detaiId="outstanding?._id" />

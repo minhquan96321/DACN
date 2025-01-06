@@ -12,6 +12,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/vue-fontawesome": "^3.0.6",
     "@heroicons/vue": "^2.1.1",
+    "@payos/node": "^1.0.6",
     "axios": "^1.6.8",
     "lodash": "^4.17.21",
     "moment": "^2.30.1",
