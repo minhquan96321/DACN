@@ -16,7 +16,7 @@ const toggleSubscription = () => {
   }
 };
 
-// Sử dụng onReady callback của PushAlert
+// Sử dụng onMounted callback của PushAlert
 onMounted(() => {
   // Kiểm tra trạng thái đăng ký ban đầu
   isSubscribed.value = pushalertbyiw.isSubscribed();
