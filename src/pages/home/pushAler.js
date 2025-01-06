@@ -1,63 +1,66 @@
 export const pushalertbyiw = {
-  isUserSubscribed: false,
+  isUserSubscribed: false, // Trạng thái đăng ký của người dùng
 
   subscribe: () => {
     console.log("Subscribed");
-    pushalertbyiw.isUserSubscribed = true;
-    pushalertbyiw.dispatchEvent("onSubscribe");
+    pushalertbyiw.isUserSubscribed = true; // Cập nhật trạng thái
+    pushalertbyiw.dispatchEvent("onSubscribe"); // Gọi sự kiện
   },
 
   unsubscribe: () => {
     console.log("Unsubscribed");
-    pushalertbyiw.isUserSubscribed = false;
-    pushalertbyiw.dispatchEvent("onUnsubscribe");
+    pushalertbyiw.isUserSubscribed = false; // Cập nhật trạng thái
+    pushalertbyiw.dispatchEvent("onUnsubscribe"); // Gọi sự kiện
   },
 
   isSubscribed: () => {
-    return pushalertbyiw.isUserSubscribed;
+    return pushalertbyiw.isUserSubscribed; // Trả về trạng thái đăng ký
   },
 
   dispatchEvent: (event) => {
-    if (event === "onSubscribe") {
-      if (pushalertbyiw.onSubscribeCallback) {
-        pushalertbyiw.onSubscribeCallback();
-      }
-    } else if (event === "onUnsubscribe") {
-      if (pushalertbyiw.onUnsubscribeCallback) {
-        pushalertbyiw.onUnsubscribeCallback();
-      }
+    if (event === "onSubscribe" && pushalertbyiw.onSubscribeCallback) {
+      pushalertbyiw.onSubscribeCallback(); // Gọi callback khi đăng ký
+    } else if (
+      event === "onUnsubscribe" &&
+      pushalertbyiw.onUnsubscribeCallback
+    ) {
+      pushalertbyiw.onUnsubscribeCallback(); // Gọi callback khi hủy đăng ký
     }
   },
 
   addEventListener: (event, callback) => {
     if (event === "onSubscribe") {
-      pushalertbyiw.onSubscribeCallback = callback;
+      pushalertbyiw.onSubscribeCallback = callback; // Lưu callback cho sự kiện đăng ký
     } else if (event === "onUnsubscribe") {
-      pushalertbyiw.onUnsubscribeCallback = callback;
+      pushalertbyiw.onUnsubscribeCallback = callback; // Lưu callback cho sự kiện hủy đăng ký
     }
   },
 };
 
 // Kết hợp với mã của PushAlertCo
 (function () {
-  // Kiểm tra xem PushAlertCo đã sẵn sàng chưa
-  window.pushalertbyiw = window.pushalertbyiw || [];
+  // Đảm bảo biến `pushalertbyiw` tồn tại
+  window.pushalertbyiw = pushalertbyiw;
+
+  // Gắn sự kiện "onReady" cho PushAlert
+  window.pushalertbyiw.push = window.pushalertbyiw.push || [];
   window.pushalertbyiw.push(["onReady", onPAReady]);
 
   function onPAReady() {
-    // Kiểm tra subs_id để biết người dùng có đăng ký không
-    if (PushAlertCo.subs_id) {
+    console.log("PushAlert SDK Ready");
+
+    // Kiểm tra trạng thái đăng ký dựa trên PushAlertCo.subs_id
+    if (window.PushAlertCo?.subs_id) {
       console.log("User is subscribed with ID:", PushAlertCo.subs_id);
-      pushalertbyiw.isSubscribed = true; // Cập nhật trạng thái đăng ký
+      pushalertbyiw.isUserSubscribed = true; // Cập nhật trạng thái đăng ký
     } else {
       console.log("User is not subscribed");
-      pushalertbyiw.isSubscribed = false; // Cập nhật trạng thái chưa đăng ký
+      pushalertbyiw.isUserSubscribed = false; // Cập nhật trạng thái chưa đăng ký
     }
 
-    // Gọi hàm cập nhật UI hoặc logic tùy theo trạng thái
-    // Ví dụ: Cập nhật lại UI hoặc trigger các sự kiện
+    // Gọi sự kiện tương ứng
     pushalertbyiw.dispatchEvent(
-      pushalertbyiw.isSubscribed ? "onSubscribe" : "onUnsubscribe"
+      pushalertbyiw.isUserSubscribed ? "onSubscribe" : "onUnsubscribe"
     );
   }
 })();
