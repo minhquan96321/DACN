@@ -1,6 +1,22 @@
 export function initPushAlert() {
   console.log("Initializing PushAlert...");
 
+  // Tùy chỉnh dialog
+  (window.pushalertbyiw = window.pushalertbyiw || []).push([
+    "configure",
+    {
+      dialog_title: "Nhận thông báo mới nhất",
+      dialog_text: "Đăng ký để nhận thông báo về các bài viết mới",
+      alert_sound: false,
+      notification_image: "URL_của_ảnh_thông_báo", // Tùy chọn
+      ask_after_page_load_delay: 5, // Delay 5 giây trước khi hiện dialog
+      popup_position: "center", // center, left, right
+      allow_button_text: "Đồng ý",
+      decline_button_text: "Để sau",
+      auto_hide_message_after: 5, // Tự động ẩn sau 5 giây
+    },
+  ]);
+
   // Khởi tạo PushAlert
   (window.pushalertbyiw = window.pushalertbyiw || []).push([
     "onReady",
