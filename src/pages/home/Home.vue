@@ -6,37 +6,28 @@ import { ref } from "vue";
 
 const isSubscribed = ref(false);
 
-(function (d, t) {
-  console.log("Initializing PushAlert...");
-  var g = d.createElement(t),
-    s = d.getElementsByTagName(t)[0];
-  g.src =
-    "https://cdn.pushalert.co/integrate_2a291e1ba34b257b0dab01b90160312e.js";
-  s.parentNode.insertBefore(g, s);
-})(document, "script");
-
-// Kiểm tra trạng thái
-window._pa = window._pa || {};
-console.log("Current _pa:", window._pa);
-
-document.addEventListener("pushalert", function (e) {
-  console.log("PushAlert Event:", e.type, e);
-  if (e.type === "subscribe") {
-    console.log("User subscribed!");
-    isSubscribed.value = true;
+// Hàm đăng ký thông báo
+function subscribeAlert() {
+  console.log("Clicking subscribe button");
+  if (typeof _pa !== "undefined") {
+    _pa.subscribe();
+    console.log("Called _pa.subscribe()");
+  } else {
+    console.log("_pa is not defined yet");
   }
-  if (e.type === "unsubscribe") {
-    console.log("User unsubscribed!");
-    isSubscribed.value = false;
-  }
-});
+}
+
+// Check status
+if (typeof _pa !== "undefined") {
+  console.log("_pa status:", _pa.status);
+}
 </script>
 <template>
   <Hearder />
   <div class="notification-wrapper">
-    <button class="notification-btn">
+    <button @click="subscribeAlert" class="notification-btn">
       <i class="fas fa-bell"></i>
-      {{ isSubscribed ? "Đã đăng ký thông báo" : "Đăng ký nhận thông báo" }}
+      Đăng ký nhận thông báo
     </button>
   </div>
   <Post />
