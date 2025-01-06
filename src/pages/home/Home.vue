@@ -2,24 +2,30 @@
 import Hearder from "@/components/header/Hearder.vue";
 import Post from "./components/Post.vue";
 import Footer from "@/components/footer/Footer.vue";
-import { ref, onMounted } from "vue";
-import { initPushAlert, subscribeUser, unsubscribeUser } from "./pushAler";
+import { ref, onMounted, watch } from "vue";
+import {
+  initPushAlert,
+  subscribeToPushAlert,
+  getSubscriptionStatus,
+} from "./pushAler";
 
 const isSubscribed = ref(false);
 
 onMounted(() => {
-  const result = initPushAlert();
-  if (result) {
-    isSubscribed.value = result.isSubscribed;
-  }
+  initPushAlert();
+  // Kiểm tra trạng thái mỗi 1 giây
+  const checkStatus = setInterval(() => {
+    isSubscribed.value = getSubscriptionStatus();
+    if (isSubscribed.value) {
+      clearInterval(checkStatus);
+    }
+  }, 1000);
 });
 
 const handleSubscribe = () => {
-  console.log("handleSubscribe", isSubscribed.value);
-  if (isSubscribed.value) {
-    unsubscribeUser();
-  } else {
-    subscribeUser();
+  if (!isSubscribed.value) {
+    console.log(2321321312123);
+    subscribeToPushAlert();
   }
 };
 </script>
@@ -32,7 +38,7 @@ const handleSubscribe = () => {
       :class="['notification-btn', { subscribed: isSubscribed }]"
     >
       <i class="fas fa-bell"></i>
-      {{ isSubscribed ? "Hủy đăng ký thông báo" : "Đăng ký nhận thông báo" }}
+      {{ isSubscribed ? "Đã đăng ký thông báo" : "Đăng ký nhận thông báo" }}
     </button>
   </div>
   <!-- <Post />
@@ -44,7 +50,7 @@ const handleSubscribe = () => {
   display: flex;
   justify-content: center;
   padding: 20px;
-  margin-top: 95px;
+  margin-top: 20px;
 }
 
 .notification-btn {
