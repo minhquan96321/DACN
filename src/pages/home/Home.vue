@@ -2,31 +2,28 @@
 import Hearder from "@/components/header/Hearder.vue";
 import Post from "./components/Post.vue";
 import Footer from "@/components/footer/Footer.vue";
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 
 const isSubscribed = ref(false);
 
 const subscribePushAlert = () => {
-  console.log("kiểm tra", window.pushalert);
-  if (window.pushalert) {
-    window.pushalert.subscribe();
-  }
+  pushalertbyiw.subscribe();
 };
 
-onMounted(() => {
-  // Kiểm tra trạng thái đăng ký khi component được mount
-  if (window.pushalert) {
-    isSubscribed.value = window.pushalert.isSubscribed();
+// Sử dụng onReady callback của PushAlert
+pushalertbyiw.onReady(function () {
+  // Kiểm tra trạng thái đăng ký
+  isSubscribed.value = pushalertbyiw.isSubscribed();
+  const deviceId = pushalertbyiw.getUserId();
+  console.log("Device ID của người dùng:", deviceId);
+  // Thêm event listeners
+  pushalertbyiw.addEventListener("onSubscribe", () => {
+    isSubscribed.value = true;
+  });
 
-    // Lắng nghe sự kiện đăng ký/hủy đăng ký
-    window.pushalert.addEventListener("onSubscribe", () => {
-      isSubscribed.value = true;
-    });
-
-    window.pushalert.addEventListener("onUnsubscribe", () => {
-      isSubscribed.value = false;
-    });
-  }
+  pushalertbyiw.addEventListener("onUnsubscribe", () => {
+    isSubscribed.value = false;
+  });
 });
 </script>
 
