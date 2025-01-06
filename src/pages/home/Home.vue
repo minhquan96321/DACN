@@ -3,7 +3,7 @@ import Hearder from "@/components/header/Hearder.vue";
 import Post from "./components/Post.vue";
 import Footer from "@/components/footer/Footer.vue";
 import { ref, onMounted } from "vue";
-import { initPushAlert } from "./pushAlert.js"; // Nhập hàm initPushAlert
+import { initPushAlert } from "./pushAler"; // Nhập hàm initPushAlert
 
 const isSubscribed = ref(false);
 
