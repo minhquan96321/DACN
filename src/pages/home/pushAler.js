@@ -15,21 +15,18 @@ export function initPushAlert(manualInit = true) {
       auto_init: false, // Disable automatic initialization
     },
   ]);
-  function onPAReady() {
-    console.log("PushAlert Ready");
-    if (manualInit) {
-      PushAlertCo.init(); // Manually trigger subscription box
-    }
-    checkSubscriptionStatus();
-  }
 
-  // Khởi tạo PushAlert
   (window.pushalertbyiw = window.pushalertbyiw || []).push([
     "onReady",
-    onPAReady,
+    function () {
+      console.log("PushAlert Ready");
+      if (manualInit && window.PushAlertCo) {
+        PushAlertCo.init(); // Manually trigger subscription box
+      }
+      checkSubscriptionStatus();
+    },
   ]);
 
-  // Xử lý khi notification bị block
   (window.pushalertbyiw = window.pushalertbyiw || []).push([
     "onBlock",
     function () {
@@ -38,7 +35,6 @@ export function initPushAlert(manualInit = true) {
     },
   ]);
 
-  // Xử lý khi đăng ký thành công
   (window.pushalertbyiw = window.pushalertbyiw || []).push([
     "onSuccess",
     function (result) {
@@ -48,12 +44,11 @@ export function initPushAlert(manualInit = true) {
     },
   ]);
 
-  // Xử lý khi đăng ký thất bại
   (window.pushalertbyiw = window.pushalertbyiw || []).push([
     "onFailure",
     function (result) {
       console.log("Subscription Failed:", result);
-      if (result.status == -1) {
+      if (result.status === -1) {
         showBlockMessage();
       }
     },
@@ -61,7 +56,6 @@ export function initPushAlert(manualInit = true) {
 }
 
 function showBlockMessage() {
-  // Hiển thị thông báo hướng dẫn mở block
   const blockMessage = document.createElement("div");
   blockMessage.id = "notification-block-message";
   blockMessage.style.cssText = `
@@ -82,7 +76,7 @@ function showBlockMessage() {
       <div style="display: flex; align-items: center; gap: 10px;">
           <i class="fas fa-exclamation-triangle"></i>
           <span>Bạn đã chặn thông báo. Vui lòng click vào biểu tượng khóa trên thanh địa chỉ, 
-          sau đó đặt quyền "Notifications" thành "Ask/Hỏi (mặc định)". Sau đó tải lại trang.</span>
+          sau đó đặt quyền \"Notifications\" thành \"Ask/Hỏi (mặc định)\". Sau đó tải lại trang.</span>
       </div>
   `;
   document.body.appendChild(blockMessage);
@@ -142,7 +136,7 @@ export function initManualSubscription() {
     "onReady",
     function () {
       if (window.PushAlertCo) {
-        PushAlertCo.init();
+        PushAlertCo.init(); // Manually trigger subscription box
       }
     },
   ]);

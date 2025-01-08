@@ -16,7 +16,10 @@ const subsInfo = ref(null);
 onMounted(() => {
   initPushAlert(false); // Khởi tạo với cấu hình cơ bản
 
-  // Kiểm tra trạng thái
+  checkSubscriptionStatus().then((status) => {
+    isSubscribed.value = status.isSubscribed;
+    subsInfo.value = status;
+  });
 });
 
 const handleSubscribe = () => {
@@ -38,11 +41,11 @@ const handleSubscribe = () => {
     </button>
 
     <!-- Hiển thị thông tin subscription (có thể ẩn trong production) -->
-    <!-- <div v-if="subsInfo" class="subscription-info">
+    <div v-if="subsInfo" class="subscription-info">
       <p>Device: {{ subsInfo.deviceType }}</p>
       <p>Browser: {{ subsInfo.browserType }}</p>
       <p>ID: {{ subsInfo.subscriberId }}</p>
-    </div> -->
+    </div>
   </div>
   <!-- <Post />
   <Footer /> -->
