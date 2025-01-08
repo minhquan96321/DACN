@@ -22,7 +22,9 @@ onMounted(() => {
 });
 
 const handleSubscribe = () => {
-  if (!isSubscribed.value) {
+  console.log("handleSubscribe", isSubscribed.value);
+  if (isSubscribed.value == false) {
+    console.log("23211232112312");
     subscribeToPushAlert(); // Manually trigger subscription dialog
     // PushAlertCo.forceSubscribe();
   }
