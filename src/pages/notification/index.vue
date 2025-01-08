@@ -73,8 +73,6 @@ const notification = reactive({
   icon: "https://cdn.pushalert.co/icons/default_icon-76999_2.png",
 });
 
-const apiKey = "f7d382ec78902fc3cc08483ef69fa136";
-
 const showStatus = (type, message) => {
   status.type = type;
   status.message = message;
@@ -87,28 +85,20 @@ const showStatus = (type, message) => {
 const sendNotification = async () => {
   loading.value = true;
   try {
-    const formData = new URLSearchParams();
-    formData.append("title", notification.title);
-    formData.append("message", notification.message);
-    if (notification.url) formData.append("url", notification.url);
-    if (notification.icon) formData.append("icon", notification.icon);
+    const response = await axios.post(
+      `https://manage-restaurant.minhquancao0.workers.dev/api/notification`,
+      notification,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-    const response = await axios({
-      method: "post",
-      url: "https://api.pushalert.co/rest/v1/send",
-      headers: {
-        Authorization: `api_key=${apiKey}`,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      data: formData,
-    });
-
-    if (response.data.success) {
+    if (response.data.status == "success") {
       showStatus("success", "Gửi thông báo thành công!");
       notification.title = "";
       notification.message = "";
-      notification.url = "";
-      notification.icon = "";
     } else {
       showStatus("error", "Không thể gửi thông báo");
     }

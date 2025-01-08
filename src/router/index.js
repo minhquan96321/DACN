@@ -99,9 +99,14 @@ const routes = [
   },
 
   {
-    path: "/index/send",
-    component: () => import("@/pages/admin/index.vue"),
+    path: "/notification/send",
+    component: () => import("@/pages/notification/index.vue"),
   },
+
+  {
+    path: "/notification/segment",
+    component: () => import("@/pages/notification/segmenAdd.vue"),
+  }
 
   // {
   //   path: "update/:id",
