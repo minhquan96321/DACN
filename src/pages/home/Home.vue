@@ -27,7 +27,6 @@ const handleSubscribe = () => {
   }
 };
 </script>
-
 <template>
   <div class="notification-wrapper">
     <button
@@ -45,28 +44,6 @@ const handleSubscribe = () => {
       <p>ID: {{ subsInfo.subscriberId }}</p>
     </div>
   </div>
-</template>
-
-<template>
-  <!-- <Hearder /> -->
-  <div class="notification-wrapper">
-    <button
-      @click="handleSubscribe"
-      :class="['notification-btn', { subscribed: isSubscribed }]"
-    >
-      <i class="fas fa-bell"></i>
-      {{ isSubscribed ? "Đã đăng ký thông báo" : "Đăng ký nhận thông báo" }}
-    </button>
-
-    <!-- Hiển thị thông tin subscription (có thể ẩn trong production) -->
-    <div v-if="subsInfo" class="subscription-info">
-      <p>Device: {{ subsInfo.deviceType }}</p>
-      <p>Browser: {{ subsInfo.browserType }}</p>
-      <p>ID: {{ subsInfo.subscriberId }}</p>
-    </div>
-  </div>
-  <!-- <Post />
-  <Footer /> -->
 </template>
 
 <style>
