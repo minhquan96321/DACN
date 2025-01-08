@@ -3,12 +3,7 @@ import Hearder from "@/components/header/Hearder.vue";
 import Post from "./components/Post.vue";
 import Footer from "@/components/footer/Footer.vue";
 import { ref, onMounted } from "vue";
-import {
-  initPushAlert,
-  // checkSubscriptionStatus,
-  // subscribeToPushAlert,
-  showSubscriptionPrompt,
-} from "./pushAler";
+import { initPushAlert, showSubscriptionPrompt } from "./pushAler";
 
 const isSubscribed = ref(false);
 const subsInfo = ref(null);
@@ -36,7 +31,6 @@ const updateSubscriptionStatus = () => {
 
 const handleSubscribe = () => {
   if (!isSubscribed.value) {
-    // subscribeToPushAlert();
   }
 };
 
@@ -132,5 +126,45 @@ const handleUnblock = () => {
 
 .subscription-info p {
   margin: 5px 0;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+  .notification-wrapper {
+    margin-top: 60px;
+    padding: 15px;
+  }
+
+  .notification-btn {
+    min-width: 160px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .subscription-info {
+    width: 90%;
+    font-size: 0.8rem;
+    padding: 8px;
+  }
+}
+
+/* Small Mobile Devices */
+@media screen and (max-width: 480px) {
+  .notification-wrapper {
+    margin-top: 40px;
+    padding: 10px;
+  }
+
+  .notification-btn {
+    min-width: 140px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .subscription-info {
+    width: 95%;
+    font-size: 0.75rem;
+    padding: 6px;
+  }
 }
 </style>

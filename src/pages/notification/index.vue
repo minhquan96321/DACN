@@ -225,12 +225,76 @@ button:disabled {
 }
 
 @media (max-width: 600px) {
-  .input-row {
-    grid-template-columns: 1fr;
+  .admin-container {
+    margin: 1rem auto;
+    padding: 0 0.5rem;
   }
 
   .notification-card {
-    padding: 1.5rem;
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .card-title {
+    margin-bottom: 1.5rem;
+  }
+
+  .card-title h2 {
+    font-size: 1.25rem;
+  }
+
+  .bell-icon {
+    font-size: 1.25rem;
+  }
+
+  .input-row {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .input-group {
+    margin-bottom: 1rem;
+  }
+
+  .input-group input,
+  .input-group textarea {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+  }
+
+  .input-group textarea {
+    height: 100px;
+  }
+
+  button {
+    padding: 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  .status-message {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Thêm breakpoint cho màn hình cực nhỏ */
+@media (max-width: 320px) {
+  .notification-card {
+    padding: 0.8rem;
+  }
+
+  .card-title h2 {
+    font-size: 1.1rem;
+  }
+
+  .bell-icon {
+    font-size: 1.1rem;
+  }
+
+  .input-group input,
+  .input-group textarea {
+    padding: 0.6rem;
+    font-size: 0.9rem;
   }
 }
 </style>

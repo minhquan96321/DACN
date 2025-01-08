@@ -211,15 +211,108 @@ label {
 
 @media (max-width: 640px) {
   .segment-add-container {
+    padding: 10px;
+  }
+
+  .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-header {
     padding: 15px;
   }
 
+  .header-icon {
+    font-size: 1.2rem;
+  }
+
+  .card-header h4 {
+    font-size: 1.1rem;
+  }
+
   .card-body {
-    padding: 20px;
+    padding: 15px;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-control {
+    padding: 0.6rem 0.6rem 0.6rem 2.2rem;
+    font-size: 0.9rem;
+  }
+
+  .input-icon {
+    font-size: 0.9rem;
+    left: 10px;
   }
 
   .btn-primary {
-    padding: 0.75rem 1.5rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .btn-primary i {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .segment-add-container {
+    padding: 8px;
+  }
+
+  .card-header {
+    padding: 12px;
+  }
+
+  .header-icon {
+    font-size: 1.1rem;
+  }
+
+  .card-header h4 {
+    font-size: 1rem;
+  }
+
+  .card-body {
+    padding: 12px;
+  }
+
+  .form-control {
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    font-size: 0.85rem;
+  }
+
+  .btn-primary {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Add touch-friendly improvements for mobile */
+@media (hover: none) {
+  .card:hover {
+    transform: none;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    transform: none;
+  }
+
+  /* Add active state for touch devices */
+  .btn-primary:active:not(:disabled) {
+    transform: scale(0.98);
+    background: linear-gradient(45deg, #1565c0, #0d47a1);
+  }
+
+  .form-control {
+    -webkit-tap-highlight-color: transparent;
   }
 }
 </style>
