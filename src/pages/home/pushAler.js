@@ -23,7 +23,7 @@ export function initPushAlert(manualInit = false) {
       if (manualInit && window.PushAlertCo) {
         PushAlertCo.init(); // Manually trigger subscription box
       }
-      checkSubscriptionStatus();
+      // checkSubscriptionStatus();
     },
   ]);
 
@@ -40,7 +40,7 @@ export function initPushAlert(manualInit = false) {
     function (result) {
       console.log("Subscription Success:", result);
       hideBlockMessage();
-      checkSubscriptionStatus();
+      // checkSubscriptionStatus();
     },
   ]);
 
@@ -89,47 +89,47 @@ function hideBlockMessage() {
   }
 }
 
-export function checkSubscriptionStatus() {
-  (window.pushalertbyiw = window.pushalertbyiw || []).push([
-    "getSubsInfo",
-    function (result) {
-      console.log("Subscription Info:", result);
-      if (result.permission === "denied") {
-        showBlockMessage();
-      } else {
-        hideBlockMessage();
-      }
-      return {
-        isSubscribed: result.isPushEnabled,
-        subscriberId: result.subId,
-        browserType: result.browser_type,
-        deviceType: result.device_type,
-        permission: result.permission,
-      };
-    },
-  ]);
-}
+// export function checkSubscriptionStatus() {
+//   (window.pushalertbyiw = window.pushalertbyiw || []).push([
+//     "getSubsInfo",
+//     function (result) {
+//       console.log("Subscription Info:", result);
+//       if (result.permission === "denied") {
+//         showBlockMessage();
+//       } else {
+//         hideBlockMessage();
+//       }
+//       return {
+//         isSubscribed: result.isPushEnabled,
+//         subscriberId: result.subId,
+//         browserType: result.browser_type,
+//         deviceType: result.device_type,
+//         permission: result.permission,
+//       };
+//     },
+//   ]);
+// }
 
-export function subscribeToPushAlert() {
-  if (window.pushalertbyiw) {
-    window.pushalertbyiw.push([
-      "subscribe",
-      {
-        successCallback: function () {
-          console.log("Subscribe callback success");
-          hideBlockMessage();
-          checkSubscriptionStatus();
-        },
-        errorCallback: function (error) {
-          console.log("Subscribe callback error:", error);
-          if (error.reason === "blocked") {
-            showBlockMessage();
-          }
-        },
-      },
-    ]);
-  }
-}
+// export function subscribeToPushAlert() {
+//   if (window.pushalertbyiw) {
+//     window.pushalertbyiw.push([
+//       "subscribe",
+//       {
+//         successCallback: function () {
+//           console.log("Subscribe callback success");
+//           hideBlockMessage();
+//           checkSubscriptionStatus();
+//         },
+//         errorCallback: function (error) {
+//           console.log("Subscribe callback error:", error);
+//           if (error.reason === "blocked") {
+//             showBlockMessage();
+//           }
+//         },
+//       },
+//     ]);
+//   }
+// }
 
 export function initManualSubscription() {
   (window.pushalertbyiw = window.pushalertbyiw || []).push([

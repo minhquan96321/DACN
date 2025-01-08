@@ -98,6 +98,11 @@ const routes = [
     ],
   },
 
+  {
+    path: "/index/send",
+    component: () => import("@/pages/admin/index.vue"),
+  },
+
   // {
   //   path: "update/:id",
   //   name: "UpdatePage",
