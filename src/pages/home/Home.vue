@@ -7,13 +7,14 @@ import {
   initPushAlert,
   checkSubscriptionStatus,
   subscribeToPushAlert,
+  initManualSubscription,
 } from "./pushAler";
 
 const isSubscribed = ref(false);
 const subsInfo = ref(null);
 
 onMounted(() => {
-  initPushAlert();
+  initPushAlert(); // Khởi tạo với cấu hình cơ bản
 
   // Kiểm tra trạng thái subscription định kỳ
   const checkStatus = setInterval(() => {
@@ -30,7 +31,7 @@ onMounted(() => {
 
 const handleSubscribe = () => {
   if (!isSubscribed.value) {
-    subscribeToPushAlert();
+    initManualSubscription(); // Gọi khởi tạo thủ công khi người dùng click
   }
 };
 </script>
@@ -63,7 +64,7 @@ const handleSubscribe = () => {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  margin-top: 20px;
+  margin-top: 95px;
 }
 
 .subscription-info {

@@ -2,6 +2,7 @@ export function initPushAlert() {
   console.log("Initializing PushAlert...");
 
   // Tùy chỉnh dialog
+
   (window.pushalertbyiw = window.pushalertbyiw || []).push([
     "configure",
     {
@@ -12,14 +13,8 @@ export function initPushAlert() {
       popup_position: "center",
       allow_button_text: "Đồng ý",
       decline_button_text: "Để sau",
-      block_message:
-        "Bạn đã chặn thông báo. Vui lòng click vào biểu tượng khóa trên thanh địa chỉ, sau đó đặt quyền 'Notifications' thành 'Ask/Hỏi (mặc định)'. Sau đó tải lại trang.",
-      block_message_position: "center",
-      block_message_padding: "20px",
-      block_message_bgColor: "#f8d7da",
-      block_message_color: "#721c24",
-      block_message_borderColor: "#f5c6cb",
-      block_message_showIcon: true,
+      block_message: "Bạn đã chặn thông báo...",
+      auto_init: false, // Disable automatic initialization
     },
   ]);
 
@@ -97,8 +92,16 @@ function hideBlockMessage() {
 
 function onPAReady() {
   console.log("PushAlert Ready");
+  if (manualInit) {
+    PushAlertCo.init(); // Manually trigger subscription box
+  }
   checkSubscriptionStatus();
 }
+
+(window.pushalertbyiw = window.pushalertbyiw || []).push([
+  "onReady",
+  onPAReady,
+]);
 
 export function checkSubscriptionStatus() {
   (window.pushalertbyiw = window.pushalertbyiw || []).push([
@@ -140,4 +143,15 @@ export function subscribeToPushAlert() {
       },
     ]);
   }
+}
+
+export function initManualSubscription() {
+  (window.pushalertbyiw = window.pushalertbyiw || []).push([
+    "onReady",
+    function () {
+      if (window.PushAlertCo) {
+        PushAlertCo.init();
+      }
+    },
+  ]);
 }
