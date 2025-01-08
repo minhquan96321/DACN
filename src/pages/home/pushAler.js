@@ -1,7 +1,5 @@
-export function initPushAlert() {
+export function initPushAlert(manualInit = true) {
   console.log("Initializing PushAlert...");
-
-  // Tùy chỉnh dialog
 
   (window.pushalertbyiw = window.pushalertbyiw || []).push([
     "configure",
@@ -17,6 +15,13 @@ export function initPushAlert() {
       auto_init: false, // Disable automatic initialization
     },
   ]);
+  function onPAReady() {
+    console.log("PushAlert Ready");
+    if (manualInit) {
+      PushAlertCo.init(); // Manually trigger subscription box
+    }
+    checkSubscriptionStatus();
+  }
 
   // Khởi tạo PushAlert
   (window.pushalertbyiw = window.pushalertbyiw || []).push([
@@ -89,19 +94,6 @@ function hideBlockMessage() {
     blockMessage.remove();
   }
 }
-
-function onPAReady() {
-  console.log("PushAlert Ready");
-  if (manualInit) {
-    PushAlertCo.init(); // Manually trigger subscription box
-  }
-  checkSubscriptionStatus();
-}
-
-(window.pushalertbyiw = window.pushalertbyiw || []).push([
-  "onReady",
-  onPAReady,
-]);
 
 export function checkSubscriptionStatus() {
   (window.pushalertbyiw = window.pushalertbyiw || []).push([

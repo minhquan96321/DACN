@@ -14,19 +14,9 @@ const isSubscribed = ref(false);
 const subsInfo = ref(null);
 
 onMounted(() => {
-  initPushAlert(); // Khởi tạo với cấu hình cơ bản
+  initPushAlert(false); // Khởi tạo với cấu hình cơ bản
 
-  // Kiểm tra trạng thái subscription định kỳ
-  const checkStatus = setInterval(() => {
-    const info = checkSubscriptionStatus();
-    if (info) {
-      subsInfo.value = info;
-      isSubscribed.value = info.isSubscribed;
-      if (isSubscribed.value) {
-        clearInterval(checkStatus);
-      }
-    }
-  }, 1000);
+  // Kiểm tra trạng thái
 });
 
 const handleSubscribe = () => {
