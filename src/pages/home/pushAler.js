@@ -1,4 +1,4 @@
-export function initPushAlert(manualInit = false) {
+export function initPushAlert(manualInit = true) {
   console.log("Initializing PushAlert...");
 
   (window.pushalertbyiw = window.pushalertbyiw || []).push([
@@ -7,7 +7,7 @@ export function initPushAlert(manualInit = false) {
       dialog_title: "Nhận thông báo mới nhất",
       dialog_text: "Đăng ký để nhận thông báo về các bài viết mới",
       alert_sound: false,
-      ask_after_page_load_delay: 5,
+      ask_after_page_load_delay: -1,
       popup_position: "center",
       allow_button_text: "Đồng ý",
       decline_button_text: "Để sau",
@@ -147,4 +147,13 @@ export function initPushAlert(autoInit = false) {
     autoRegister: autoInit, // Prevents automatic registration
     hideDialog: true, // Ensures no dialog is shown automatically
   });
+}
+
+export function showSubscriptionPrompt() {
+  if (window.PushAlertCo) {
+    console.log("Showing subscription prompt");
+    window.PushAlertCo.init();
+  } else {
+    console.log("PushAlertCo not available");
+  }
 }
