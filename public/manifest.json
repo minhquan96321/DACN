@@ -1,0 +1,15 @@
+{
+  "name": "Đồ ăn",
+  "short_name": "Thông báo ",
+  "start_url": "https://dacn.pages.dev",
+  "id": "https://dacn.pages.dev",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "https://cdn.pushalert.co/icons/app-icon-76999-2.png?1736304162",
+      "sizes": "256x256"
+    }
+  ]
+}

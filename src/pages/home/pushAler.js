@@ -58,12 +58,17 @@ export function initPushAlert(manualInit = false) {
 function showBlockMessage() {
   const blockMessage = document.createElement("div");
   blockMessage.id = "notification-block-message";
+
+  // Kiểm tra thiết bị
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  // Điều chỉnh style dựa trên thiết bị
   blockMessage.style.cssText = `
       position: fixed;
-      top: 20px;
+      ${isMobile ? "bottom: 20px" : "top: 20px"};
       left: 50%;
       transform: translateX(-50%);
-      padding: 15px 20px;
+      padding: ${isMobile ? "12px 15px" : "15px 20px"};
       background: #f8d7da;
       color: #721c24;
       border: 1px solid #f5c6cb;
@@ -71,15 +76,33 @@ function showBlockMessage() {
       z-index: 9999;
       text-align: center;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      max-width: ${isMobile ? "90%" : "400px"};
+      width: ${isMobile ? "90%" : "auto"};
+      font-size: ${isMobile ? "14px" : "16px"};
   `;
+
+  // Điều chỉnh nội dung thông báo dựa trên thiết bị
+  const message = isMobile
+    ? "Bạn đã chặn thông báo. Vui lòng vào Cài đặt trình duyệt > Quyền > Thông báo và cho phép thông báo."
+    : 'Bạn đã chặn thông báo. Vui lòng click vào biểu tượng khóa trên thanh địa chỉ, sau đó đặt quyền "Notifications" thành "Ask/Hỏi (mặc định)". Sau đó tải lại trang.';
+
   blockMessage.innerHTML = `
-      <div style="display: flex; align-items: center; gap: 10px;">
+      <div style="display: flex; align-items: center; gap: ${
+        isMobile ? "8px" : "10px"
+      };">
           <i class="fas fa-exclamation-triangle"></i>
-          <span>Bạn đã chặn thông báo. Vui lòng click vào biểu tượng khóa trên thanh địa chỉ, 
-          sau đó đặt quyền \"Notifications\" thành \"Ask/Hỏi (mặc định)\". Sau đó tải lại trang.</span>
+          <span>${message}</span>
       </div>
   `;
+
   document.body.appendChild(blockMessage);
+
+  // Tự động ẩn thông báo sau 5 giây trên mobile
+  if (isMobile) {
+    setTimeout(() => {
+      hideBlockMessage();
+    }, 5000);
+  }
 }
 
 function hideBlockMessage() {
