@@ -1,5 +1,3 @@
-pushAler.js(1 - 144);
-
 export function initPushAlert() {
   console.log("Initializing PushAlert...");
 
