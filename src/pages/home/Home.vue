@@ -14,7 +14,7 @@ const isSubscribed = ref(false);
 const subsInfo = ref(null);
 
 onMounted(() => {
-  initPushAlert(true); // Initialize without automatic dialog
+  initPushAlert(false); // Initialize without automatic dialog
   checkSubscriptionStatus().then((status) => {
     isSubscribed.value = status.isSubscribed;
     subsInfo.value = status;
