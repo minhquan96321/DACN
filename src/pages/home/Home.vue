@@ -15,15 +15,16 @@ const subsInfo = ref(null);
 
 onMounted(() => {
   initPushAlert(false); // Initialize without automatic dialog
-  checkSubscriptionStatus().then((status) => {
-    isSubscribed.value = status.isSubscribed;
-    subsInfo.value = status;
-  });
+  // checkSubscriptionStatus().then((status) => {
+  //   isSubscribed.value = status.isSubscribed;
+  //   subsInfo.value = status;
+  // });
 });
 
 const handleSubscribe = () => {
   if (!isSubscribed.value) {
     subscribeToPushAlert(); // Manually trigger subscription dialog
+    // PushAlertCo.forceSubscribe();
   }
 };
 </script>
