@@ -50,7 +50,7 @@ const createSegment = async () => {
 
   try {
     const response = await axios.post(
-      `https://manage-restaurant.minhquancao0.workers.dev/api/notification`,
+      `https://manage-restaurant.minhquancao0.workers.dev/api/notification/addSegment`,
       body.value,
       {
         headers: {
@@ -59,7 +59,7 @@ const createSegment = async () => {
       }
     );
 
-    if (data.success) {
+    if (response.data.success) {
       alert("Segment created successfully!");
       body.value.segmentName = ""; // Reset form
     } else {
