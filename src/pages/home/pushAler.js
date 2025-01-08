@@ -1,4 +1,4 @@
-export function initPushAlert(manualInit = true) {
+export function initPushAlert(manualInit = false) {
   console.log("Initializing PushAlert...");
 
   (window.pushalertbyiw = window.pushalertbyiw || []).push([
@@ -140,13 +140,6 @@ export function initManualSubscription() {
       }
     },
   ]);
-}
-
-export function initPushAlert(autoInit = false) {
-  PushAlertCo.init({
-    autoRegister: autoInit, // Prevents automatic registration
-    hideDialog: true, // Ensures no dialog is shown automatically
-  });
 }
 
 export function showSubscriptionPrompt() {
