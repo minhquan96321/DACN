@@ -5,8 +5,8 @@ import Footer from "@/components/footer/Footer.vue";
 import { ref, onMounted } from "vue";
 import {
   initPushAlert,
-  subscribeToPushAlert,
   checkSubscriptionStatus,
+  subscribeToPushAlert,
 } from "./pushAler";
 
 const isSubscribed = ref(false);
