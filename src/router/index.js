@@ -100,13 +100,13 @@ const routes = [
 
   {
     path: "/notification/send",
-    component: () => import("@/pages/notification/index.vue"),
+    component: () => import("@/pages/admin/index.vue"),
   },
 
   {
     path: "/notification/segment",
-    component: () => import("@/pages/notification/segmenAdd.vue"),
-  }
+    component: () => import("@/pages/admin/segmenAdd.vue"),
+  },
 
   // {
   //   path: "update/:id",
