@@ -4,6 +4,9 @@ import Post from "./components/Post.vue";
 import Footer from "@/components/footer/Footer.vue";
 import { ref, onMounted } from "vue";
 import { initPushAlert, showSubscriptionPrompt } from "./pushAler";
+import { useRoute } from "vue-router";
+
+const router = useRoute();
 
 const isSubscribed = ref(false);
 const subsInfo = ref(null);
@@ -50,6 +53,22 @@ const handleUnblock = () => {
       <i class="fas fa-bell"></i>
       <!-- {{ isSubscribed ? "Đã đăng ký thông báo" : "Đăng ký nhận thông báo" }} -->
       Chạy thử coi có được không
+    </button>
+
+    <button
+      @click="router.push('/notification/send')"
+      :class="['notification-btn', { subscribed: isSubscribed }]"
+    >
+      <i class="fas fa-bell"></i>
+      Gửi thông báo
+    </button>
+
+    <button
+      @click="router.push('/notification/segment')"
+      :class="['notification-btn', { subscribed: isSubscribed }]"
+    >
+      <i class="fas fa-bell"></i>
+      Tạo thể loại gửi
     </button>
 
     <!-- Unblock Button -->
