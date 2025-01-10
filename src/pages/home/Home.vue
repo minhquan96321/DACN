@@ -4,9 +4,9 @@ import Post from "./components/Post.vue";
 import Footer from "@/components/footer/Footer.vue";
 import { ref, onMounted } from "vue";
 import { initPushAlert, showSubscriptionPrompt } from "./pushAler";
-import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 
-const router = useRoute();
+const router = useRouter();
 
 const isSubscribed = ref(false);
 const subsInfo = ref(null);
@@ -114,6 +114,7 @@ const handleUnblock = () => {
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11);
   min-width: 200px;
   justify-content: center;
+  margin-top: 10px;
 }
 
 .notification-btn:hover {
