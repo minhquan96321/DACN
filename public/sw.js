@@ -1,5 +1,5 @@
 // public/sw.js
-importScripts("https://cdn.pushalert.co/sw-78204_2.js");
+// importScripts("https://cdn.pushalert.co/sw-78204_2.js");
 const CACHE_NAME = "blog-app-v1";
 const ASSETS_TO_CACHE = [
   "/",
