@@ -108,6 +108,11 @@ const routes = [
     component: () => import("@/pages/notification/segmenAdd.vue"),
   },
 
+  {
+    path: "/notification/segment/send",
+    component: () => import("@/pages/notification/sendSegmen.vue"),
+  },
+
   // {
   //   path: "update/:id",
   //   name: "UpdatePage",

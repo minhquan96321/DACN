@@ -59,7 +59,7 @@ const handleUnblock = () => {
       @click="router.push('/notification/send')"
       :class="['notification-btn', { subscribed: isSubscribed }]"
     >
-      <i class="fas fa-bell"></i>
+      <i class="fas fa-paper-plane"></i>
       Gửi thông báo
     </button>
 
@@ -67,9 +67,17 @@ const handleUnblock = () => {
       @click="router.push('/notification/segment')"
       :class="['notification-btn', { subscribed: isSubscribed }]"
     >
-      <i class="fas fa-bell"></i>
+      <i class="fas fa-plus-circle"></i>
       Tạo thể loại gửi
     </button>
+    <!-- 
+    <button
+      @click="router.push('/notification/segment/send')"
+      :class="['notification-btn', { subscribed: isSubscribed }]"
+    >
+      <i class="fas fa-bell"></i>
+      Gửi theo thể loại
+    </button> -->
 
     <!-- Unblock Button -->
     <button
