@@ -5,7 +5,25 @@ import Footer from "@/components/footer/Footer.vue";
 import { ref, onMounted } from "vue";
 import { initPushAlert, showSubscriptionPrompt } from "./pushAler";
 import { useRouter } from "vue-router";
+function isRunningStandalone() {
+  // Kiểm tra trên iOS
+  if (window.navigator.standalone) {
+    return true;
+  }
 
+  // Kiểm tra trên Android và trình duyệt hỗ trợ display-mode
+  if (window.matchMedia('(display-mode: standalone)').matches) {
+    return true;
+  }
+
+  return false;
+}
+
+if (isRunningStandalone()) {
+  console.log('Ứng dụng đang chạy từ màn hình chính!');
+} else {
+  console.log('Ứng dụng không chạy từ màn hình chính.');
+}
 const router = useRouter();
 
 const isSubscribed = ref(false);
@@ -45,28 +63,18 @@ const handleUnblock = () => {
 <template>
   <div class="notification-wrapper">
     <!-- Subscribe Button -->
-    <button
-      v-if="!isBlocked"
-      @click="handleSubscribe"
-      :class="['notification-btn', { subscribed: isSubscribed }]"
-    >
+    <button v-if="!isBlocked" @click="handleSubscribe" :class="['notification-btn', { subscribed: isSubscribed }]">
       <i class="fas fa-bell"></i>
       <!-- {{ isSubscribed ? "Đã đăng ký thông báo" : "Đăng ký nhận thông báo" }} -->
       Chạy thử coi có được không
     </button>
 
-    <button
-      @click="router.push('/notification/send')"
-      :class="['notification-btn', { subscribed: isSubscribed }]"
-    >
+    <button @click="router.push('/notification/send')" :class="['notification-btn', { subscribed: isSubscribed }]">
       <i class="fas fa-paper-plane"></i>
       Gửi thông báo
     </button>
 
-    <button
-      @click="router.push('/notification/segment')"
-      :class="['notification-btn', { subscribed: isSubscribed }]"
-    >
+    <button @click="router.push('/notification/segment')" :class="['notification-btn', { subscribed: isSubscribed }]">
       <i class="fas fa-plus-circle"></i>
       Tạo thể loại gửi
     </button>
@@ -80,11 +88,7 @@ const handleUnblock = () => {
     </button> -->
 
     <!-- Unblock Button -->
-    <button
-      v-if="isBlocked"
-      @click="handleUnblock"
-      class="notification-btn blocked"
-    >
+    <button v-if="isBlocked" @click="handleUnblock" class="notification-btn blocked">
       <i class="fas fa-lock-open"></i>
       Mở khóa thông báo
     </button>
