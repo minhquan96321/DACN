@@ -1,95 +1,14 @@
 {
-  "name": "Your Blog App",
-  "short_name": "Blog",
-  "description": "A modern blog application with push notifications",
-  "start_url": "/",
+  "name": "Đồ ăn",
+  "short_name": "Thông báo ",
+  "start_url": "https://dacn.pages.dev",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
-  "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "icons/icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "https://cdn.pushalert.co/icons/app-icon-76999-2.png?1736304162",
+      "sizes": "256x256"
     }
-  ],
-  "screenshots": [
-    {
-      "src": "screenshots/home-screen.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Home screen of the blog"
-    },
-    {
-      "src": "screenshots/article-view.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Article view"
-    }
-  ],
-  "categories": ["news", "lifestyle"],
-  "shortcuts": [
-    {
-      "name": "Latest Posts",
-      "url": "/latest",
-      "description": "View the latest blog posts"
-    },
-    {
-      "name": "Categories",
-      "url": "/categories",
-      "description": "Browse by category"
-    }
-  ],
-  "lang": "en",
-  "dir": "ltr",
-  "prefer_related_applications": false,
-  "related_applications": [],
-  "iarc_rating_id": "",
-  "handle_links": "preferred"
+  ]
 }
