@@ -5,6 +5,9 @@ import Footer from "@/components/footer/Footer.vue";
 import { ref, onMounted } from "vue";
 import { initPushAlert, showSubscriptionPrompt } from "./pushAler";
 import { useRouter } from "vue-router";
+
+const checkreff = ref('');
+
 function isRunningStandalone() {
   // Kiểm tra trên iOS
   if (window.navigator.standalone) {
@@ -21,8 +24,10 @@ function isRunningStandalone() {
 
 if (isRunningStandalone()) {
   console.log('Ứng dụng đang chạy từ màn hình chính!');
+  checkreff.value = 'Ứng dụng đang chạy từ màn hình chính!';
 } else {
   console.log('Ứng dụng không chạy từ màn hình chính.');
+  checkreff.value = 'Ứng dụng không chạy từ màn hình chính.';
 }
 const router = useRouter();
 
