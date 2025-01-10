@@ -25,6 +25,7 @@ function isRunningStandalone() {
 if (isRunningStandalone()) {
   console.log('Ứng dụng đang chạy từ màn hình chính!');
   checkreff.value = 'Ứng dụng đang chạy từ màn hình chính!';
+  window.open('https://zalo.me/s/4193228980057818625/', '_blank');
 } else {
   console.log('Ứng dụng không chạy từ màn hình chính.');
   checkreff.value = 'Ứng dụng không chạy từ màn hình chính.';
