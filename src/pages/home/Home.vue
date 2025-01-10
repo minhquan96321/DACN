@@ -83,6 +83,10 @@ const handleUnblock = () => {
       <i class="fas fa-plus-circle"></i>
       Tạo thể loại gửi
     </button>
+
+    <div class="notification-btn">
+      <p>{{ checkreff }}</p>
+    </div>
     <!-- 
     <button
       @click="router.push('/notification/segment/send')"
