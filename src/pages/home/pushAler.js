@@ -12,6 +12,18 @@ export function initPushAlert(manualInit = false) {
     //YOUR CODE
   }
 
+  (window.pushalertbyiw = window.pushalertbyiw || []).push([
+    "onSuccess",
+    callbackOnSuccess,
+  ]);
+
+  function callbackOnSuccess(result) {
+    console.log(result.subscriber_id); //will output the user's subscriberId
+    console.log(result.alreadySubscribed); // False means user just Subscribed
+
+    //YOUR CODE
+  }
+
   // (window.pushalertbyiw = window.pushalertbyiw || []).push([
   //   "configure",
   //   {
