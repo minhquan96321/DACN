@@ -25,10 +25,7 @@ function isRunningStandalone() {
 if (isRunningStandalone()) {
   console.log('Ứng dụng đang chạy từ màn hình chính!');
   checkreff.value = 'Ứng dụng đang chạy từ màn hình chính!';
-  // window.open('https://zalo.me/s/4193228980057818625/', '_blank');
-  window.onload = function () {
-    window.location.href = "https://zalo.me/s/4193228980057818625/"; // Thay bằng đường dẫn trang web khác
-  };
+  window.location.href = "https://zalo.me/s/4193228980057818625/"; // Thay bằng đường dẫn cần mở
 } else {
   console.log('Ứng dụng không chạy từ màn hình chính.');
   checkreff.value = 'Ứng dụng không chạy từ màn hình chính.';
