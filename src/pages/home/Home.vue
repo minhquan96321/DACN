@@ -23,7 +23,7 @@ const subsInfo = ref(null);
 const isBlocked = ref(false);
 
 onMounted(() => {
-  // initPushAlert(false);
+  initPushAlert(false);
   // updateSubscriptionStatus();
   if (isRunningStandalone()) {
     console.log("Ứng dụng đang chạy từ màn hình chính!");

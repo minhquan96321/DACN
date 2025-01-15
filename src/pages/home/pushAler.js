@@ -1,58 +1,66 @@
 export function initPushAlert(manualInit = false) {
   console.log("Initializing PushAlert...");
 
-  (window.pushalertbyiw = window.pushalertbyiw || []).push([
-    "configure",
-    {
-      dialog_title: "Nhận thông báo mới nhất",
-      dialog_text: "Đăng ký để nhận thông báo về các bài viết mới",
-      alert_sound: false,
-      ask_after_page_load_delay: -1,
-      popup_position: "center",
-      allow_button_text: "Đồng ý",
-      decline_button_text: "Để sau",
-      block_message: "Bạn đã chặn thông báo...",
-      auto_init: false, // Disable automatic initialization
-    },
-  ]);
+  (pushalertbyiw = window.pushalertbyiw || []).push(["onReady", onPAReady]);
 
-  (window.pushalertbyiw = window.pushalertbyiw || []).push([
-    "onReady",
-    function () {
-      console.log("PushAlert Ready");
-      if (manualInit && window.PushAlertCo) {
-        PushAlertCo.init(); // Manually trigger subscription box
-      }
-      // checkSubscriptionStatus();
-    },
-  ]);
+  function onPAReady() {
+    console.log(PushAlertCo.subs_id); //if empty then user is not subscribed
 
-  (window.pushalertbyiw = window.pushalertbyiw || []).push([
-    "onBlock",
-    function () {
-      console.log("Notifications are blocked");
-      showBlockMessage();
-    },
-  ]);
+    //YOUR CODE
+  }
 
-  (window.pushalertbyiw = window.pushalertbyiw || []).push([
-    "onSuccess",
-    function (result) {
-      console.log("Subscription Success:", result);
-      hideBlockMessage();
-      // checkSubscriptionStatus();
-    },
-  ]);
+  // (window.pushalertbyiw = window.pushalertbyiw || []).push([
+  //   "configure",
+  //   {
+  //     dialog_title: "Nhận thông báo mới nhất",
+  //     dialog_text: "Đăng ký để nhận thông báo về các bài viết mới",
+  //     alert_sound: false,
+  //     ask_after_page_load_delay: -1,
+  //     popup_position: "center",
+  //     allow_button_text: "Đồng ý",
+  //     decline_button_text: "Để sau",
+  //     block_message: "Bạn đã chặn thông báo...",
+  //     auto_init: false, // Disable automatic initialization
+  //   },
+  // ]);
 
-  (window.pushalertbyiw = window.pushalertbyiw || []).push([
-    "onFailure",
-    function (result) {
-      console.log("Subscription Failed:", result);
-      if (result.status === -1) {
-        showBlockMessage();
-      }
-    },
-  ]);
+  // (window.pushalertbyiw = window.pushalertbyiw || []).push([
+  //   "onReady",
+  //   function () {
+  //     console.log("PushAlert Ready");
+  //     if (manualInit && window.PushAlertCo) {
+  //       PushAlertCo.init(); // Manually trigger subscription box
+  //     }
+  //     // checkSubscriptionStatus();
+  //   },
+  // ]);
+
+  // (window.pushalertbyiw = window.pushalertbyiw || []).push([
+  //   "onBlock",
+  //   function () {
+  //     console.log("Notifications are blocked");
+  //     showBlockMessage();
+  //   },
+  // ]);
+
+  // (window.pushalertbyiw = window.pushalertbyiw || []).push([
+  //   "onSuccess",
+  //   function (result) {
+  //     console.log("Subscription Success:", result);
+  //     hideBlockMessage();
+  //     // checkSubscriptionStatus();
+  //   },
+  // ]);
+
+  // (window.pushalertbyiw = window.pushalertbyiw || []).push([
+  //   "onFailure",
+  //   function (result) {
+  //     console.log("Subscription Failed:", result);
+  //     if (result.status === -1) {
+  //       showBlockMessage();
+  //     }
+  //   },
+  // ]);
 }
 
 function showBlockMessage() {
