@@ -51,6 +51,7 @@ const handleUnblock = () => {
 
 // PushAlert ready handler
 const onPAReady = () => {
+  console.log(window.PushAlertCo);
   if (window.PushAlertCo) {
     window.PushAlertCo.init();
     initPushAlert();
