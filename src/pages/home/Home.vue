@@ -26,15 +26,15 @@ const isBlocked = ref(false);
 onMounted(() => {
   initPushAlert(false);
   updateSubscriptionStatus();
-  if (isRunningStandalone()) {
-    console.log('Ứng dụng đang chạy từ màn hình chính!');
-    checkreff.value = 'Ứng dụng đang chạy từ màn hình chính!';
-    // Sử dụng replace để chuyển hướng ngay lập tức
-    window.location.replace('https://zalo.me/s/4193228980057818625/');
-  } else {
-    console.log('Ứng dụng không chạy từ màn hình chính.');
-    checkreff.value = 'Ứng dụng không chạy từ màn hình chính.';
-  }
+  // if (isRunningStandalone()) {
+  //   console.log('Ứng dụng đang chạy từ màn hình chính!');
+  //   checkreff.value = 'Ứng dụng đang chạy từ màn hình chính!';
+  //   // Sử dụng replace để chuyển hướng ngay lập tức
+  //   window.location.replace('https://zalo.me/s/4193228980057818625/');
+  // } else {
+  //   console.log('Ứng dụng không chạy từ màn hình chính.');
+  //   checkreff.value = 'Ứng dụng không chạy từ màn hình chính.';
+  // }
 });
 
 const updateSubscriptionStatus = () => {
