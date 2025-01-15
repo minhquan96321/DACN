@@ -8,28 +8,15 @@ import { useRouter } from "vue-router";
 
 const checkreff = ref('');
 
-function isRunningStandalone() {
-  // Kiểm tra trên iOS
-  if (window.navigator.standalone) {
-    return true;
-  }
 
-  // Kiểm tra trên Android và trình duyệt hỗ trợ display-mode
-  if (window.matchMedia('(display-mode: standalone)').matches) {
-    return true;
-  }
+const isRunningStandalone = () => {
+  return (
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.navigator.standalone || // Kiểm tra cho iOS
+    document.referrer.includes('android-app://') // Kiểm tra cho Android WebView
+  );
+};
 
-  return false;
-}
-
-if (isRunningStandalone()) {
-  console.log('Ứng dụng đang chạy từ màn hình chính!');
-  checkreff.value = 'Ứng dụng đang chạy từ màn hình chính!';
-  window.location.href = "https://zalo.me/s/4193228980057818625/"; // Thay bằng đường dẫn cần mở
-} else {
-  console.log('Ứng dụng không chạy từ màn hình chính.');
-  checkreff.value = 'Ứng dụng không chạy từ màn hình chính.';
-}
 const router = useRouter();
 
 const isSubscribed = ref(false);
@@ -39,6 +26,15 @@ const isBlocked = ref(false);
 onMounted(() => {
   initPushAlert(false);
   updateSubscriptionStatus();
+  if (isRunningStandalone()) {
+    console.log('Ứng dụng đang chạy từ màn hình chính!');
+    checkreff.value = 'Ứng dụng đang chạy từ màn hình chính!';
+    // Sử dụng replace để chuyển hướng ngay lập tức
+    window.location.replace('https://zalo.me/s/4193228980057818625/');
+  } else {
+    console.log('Ứng dụng không chạy từ màn hình chính.');
+    checkreff.value = 'Ứng dụng không chạy từ màn hình chính.';
+  }
 });
 
 const updateSubscriptionStatus = () => {
