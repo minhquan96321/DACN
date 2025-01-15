@@ -30,8 +30,8 @@ onMounted(() => {
     checkreff.value = "Ứng dụng đang chạy từ màn hình chính!";
 
     // Thay đổi cách mở link
-    // window.location.href = "https://zalo.me/s/4193228980057818625/"; // URL scheme của Zalo
-    window.open("https://www.example.com", "_blank");
+    window.location.href = "https://zalo.me/s/4193228980057818625/"; // URL scheme của Zalo
+    // window.open("https://www.example.com", "_blank");
 
     // Fallback nếu không mở được app
   } else {
