@@ -2,7 +2,7 @@
   "name": "Your Blog App",
   "short_name": "Blog",
   "description": "A modern blog application",
-  "start_url": "https://zalo.me/s/4193228980057818625/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
@@ -13,6 +13,5 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ],
-  "scope": "https://zalo.me/"
+  ]
 }
