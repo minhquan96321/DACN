@@ -62,11 +62,15 @@ onMounted(() => {
   window.addEventListener("PushAlertReady", onPAReady);
 
   (function (d, t) {
+    console.log("ddd", d);
+    console.log("ttt", t);
     var g = d.createElement(t),
       s = d.getElementsByTagName(t)[0];
     g.src =
       "https://cdn.pushalert.co/integrate_27942ac22a5962d93a6a2e1ce3d470b3.js";
     s.parentNode.insertBefore(g, s);
+    console.log("gggg", g);
+    console.log("ssss", s);
   })(document, "script");
 
   if (isRunningStandalone()) {
