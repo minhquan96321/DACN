@@ -6,14 +6,13 @@ import { ref, onMounted } from "vue";
 import { initPushAlert, showSubscriptionPrompt } from "./pushAler";
 import { useRouter } from "vue-router";
 
-const checkreff = ref('');
-
+const checkreff = ref("");
 
 const isRunningStandalone = () => {
   return (
-    window.matchMedia('(display-mode: standalone)').matches ||
+    window.matchMedia("(display-mode: standalone)").matches ||
     window.navigator.standalone || // Kiểm tra cho iOS
-    document.referrer.includes('android-app://') // Kiểm tra cho Android WebView
+    document.referrer.includes("android-app://") // Kiểm tra cho Android WebView
   );
 };
 
@@ -25,15 +24,21 @@ const isBlocked = ref(false);
 
 onMounted(() => {
   initPushAlert(false);
-  updateSubscriptionStatus();
+  // updateSubscriptionStatus();
   if (isRunningStandalone()) {
-    console.log('Ứng dụng đang chạy từ màn hình chính!');
-    checkreff.value = 'Ứng dụng đang chạy từ màn hình chính!';
-    // Sử dụng replace để chuyển hướng ngay lập tức
-    window.location.replace('https://zalo.me/s/4193228980057818625/');
+    console.log("Ứng dụng đang chạy từ màn hình chính!");
+    checkreff.value = "Ứng dụng đang chạy từ màn hình chính!";
+
+    // Thay đổi cách mở link
+    // window.location.href = "zalo://chat"; // URL scheme của Zalo
+
+    // Fallback nếu không mở được app
+    setTimeout(() => {
+      window.location.href = "https://zalo.me/s/4193228980057818625/";
+    }, 1000);
   } else {
-    console.log('Ứng dụng không chạy từ màn hình chính.');
-    checkreff.value = 'Ứng dụng không chạy từ màn hình chính.';
+    console.log("Ứng dụng không chạy từ màn hình chính.");
+    checkreff.value = "Ứng dụng không chạy từ màn hình chính.";
   }
 });
 
@@ -65,18 +70,28 @@ const handleUnblock = () => {
 <template>
   <div class="notification-wrapper">
     <!-- Subscribe Button -->
-    <button v-if="!isBlocked" @click="handleSubscribe" :class="['notification-btn', { subscribed: isSubscribed }]">
+    <button
+      v-if="!isBlocked"
+      @click="handleSubscribe"
+      :class="['notification-btn', { subscribed: isSubscribed }]"
+    >
       <i class="fas fa-bell"></i>
       <!-- {{ isSubscribed ? "Đã đăng ký thông báo" : "Đăng ký nhận thông báo" }} -->
       Chạy thử coi có được không
     </button>
 
-    <button @click="router.push('/notification/send')" :class="['notification-btn', { subscribed: isSubscribed }]">
+    <button
+      @click="router.push('/notification/send')"
+      :class="['notification-btn', { subscribed: isSubscribed }]"
+    >
       <i class="fas fa-paper-plane"></i>
       Gửi thông báo
     </button>
 
-    <button @click="router.push('/notification/segment')" :class="['notification-btn', { subscribed: isSubscribed }]">
+    <button
+      @click="router.push('/notification/segment')"
+      :class="['notification-btn', { subscribed: isSubscribed }]"
+    >
       <i class="fas fa-plus-circle"></i>
       Tạo thể loại gửi
     </button>
@@ -94,10 +109,16 @@ const handleUnblock = () => {
     </button> -->
 
     <!-- Unblock Button -->
-    <button v-if="isBlocked" @click="handleUnblock" class="notification-btn blocked">
+    <button
+      v-if="isBlocked"
+      @click="handleUnblock"
+      class="notification-btn blocked"
+    >
       <i class="fas fa-lock-open"></i>
       Mở khóa thông báo
     </button>
+
+    <a href="https://zalo.me/s/4193228980057818625/">Chuyển sang Zalo</a>
 
     <!-- Subscription Info -->
     <div v-if="subsInfo && isSubscribed" class="subscription-info">
