@@ -58,33 +58,23 @@ const onPAReady = () => {
   }
 };
 
-// Component mounted hook
 onMounted(() => {
-  // Initialize PushAlert
-  onPAReady();
+  window.addEventListener("PushAlertReady", onPAReady);
 
   (function (d, t) {
-    console.log("ddd1", d);
-    console.log("ttt1", t);
     var g = d.createElement(t),
       s = d.getElementsByTagName(t)[0];
     g.src =
       "https://cdn.pushalert.co/integrate_27942ac22a5962d93a6a2e1ce3d470b3.js";
     s.parentNode.insertBefore(g, s);
-    console.log("gggg1", g);
-    console.log("ssss1", s);
   })(document, "script");
 
-  // Check standalone mode and handle navigation
   if (isRunningStandalone()) {
     checkreff.value = "Ứng dụng đang chạy từ màn hình chính!";
     window.location.href = "https://zalo.me/s/4193228980057818625/";
   } else {
     checkreff.value = "Ứng dụng không chạy từ màn hình chính.";
   }
-
-  // Add PushAlert ready event listener
-  window.addEventListener("PushAlertReady", onPAReady);
 
   // Cleanup
   return () => {
