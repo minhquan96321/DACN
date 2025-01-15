@@ -30,7 +30,7 @@ onMounted(() => {
     console.log('Ứng dụng đang chạy từ màn hình chính!');
     checkreff.value = 'Ứng dụng đang chạy từ màn hình chính!';
     // Sử dụng replace để chuyển hướng ngay lập tức
-    window.location.replace('https://zalo.me/s/4193228980057818625/');
+    window.location.replace('intent://zalo.me/s/4193228980057818625/#Intent;package=com.zing.zalo;scheme=https;end');
   } else {
     console.log('Ứng dụng không chạy từ màn hình chính.');
     checkreff.value = 'Ứng dụng không chạy từ màn hình chính.';
