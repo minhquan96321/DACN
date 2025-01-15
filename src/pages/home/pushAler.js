@@ -7,7 +7,8 @@ export function initPushAlert(manualInit = false) {
   ]);
 
   function onPAReady() {
-    console.log(PushAlertCo.subs_id); //if empty then user is not subscribed
+    // console.log(PushAlertCo.subs_id); //if empty then user is not subscribed
+    PushAlertCo.init();
 
     //YOUR CODE
   }

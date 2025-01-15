@@ -1,15 +1,13 @@
 <script setup>
+import Hearder from "@/components/header/Hearder.vue";
+import Post from "./components/Post.vue";
+import Footer from "@/components/footer/Footer.vue";
 import { ref, onMounted } from "vue";
+import { initPushAlert, showSubscriptionPrompt } from "./pushAler";
 import { useRouter } from "vue-router";
 
-// Khai báo các biến reactive
 const checkreff = ref("");
-const isSubscribed = ref(false);
-const subsInfo = ref(null);
-const isBlocked = ref(false);
-const router = useRouter();
 
-// Hàm kiểm tra xem ứng dụng có chạy ở chế độ màn hình chính không
 const isRunningStandalone = () => {
   return (
     window.matchMedia("(display-mode: standalone)").matches ||
@@ -18,63 +16,68 @@ const isRunningStandalone = () => {
   );
 };
 
-// Sử dụng router để điều hướng
+const router = useRouter();
 
-// Hàm khởi tạo push alert và kiểm tra trạng thái đăng ký
-const initPushAlert = () => {
-  (window.pushalertbyiw = window.pushalertbyiw || []).push([
-    "getSubsInfo",
-    (result) => {
-      isSubscribed.value = result.isPushEnabled;
-      isBlocked.value = result.permission === "denied";
-      subsInfo.value = {
-        deviceType: result.device_type,
-        browserType: result.browser_type,
-        subscriberId: result.subId,
-      };
-    },
-  ]);
-};
+const isSubscribed = ref(false);
+const subsInfo = ref(null);
+const isBlocked = ref(false);
 
-// Hàm xử lý đăng ký nhận thông báo
-const handleSubscribe = () => {
-  if (!isSubscribed.value) {
-    // Cập nhật trạng thái đăng ký
-    window.pushalertbyiw.push(["subscribe"]);
-    isSubscribed.value = true;
-  }
-};
+// onMounted(() => {
+//   initPushAlert(false);
+//   // updateSubscriptionStatus();
+//   if (isRunningStandalone()) {
+//     console.log("Ứng dụng đang chạy từ màn hình chính!");
+//     checkreff.value = "Ứng dụng đang chạy từ màn hình chính!";
 
-// Hàm mở cài đặt thông báo khi bị chặn
-const handleUnblock = () => {
-  window.open("chrome://settings/content/notifications", "_blank");
-};
+//     // Thay đổi cách mở link
+//     window.location.href = "https://zalo.me/s/4193228980057818625/"; // URL scheme của Zalo
+//     // window.open("https://www.example.com", "_blank");
 
-// Hàm xử lý điều hướng khi app chạy ở chế độ màn hình chính
-onMounted(() => {
-  initPushAlert();
-  if (isRunningStandalone()) {
-    checkreff.value = "Ứng dụng đang chạy từ màn hình chính!";
-    window.location.href = "https://zalo.me/s/4193228980057818625/"; // Mở Zalo app
-  } else {
-    checkreff.value = "Ứng dụng không chạy từ màn hình chính.";
-  }
-});
+//     // Fallback nếu không mở được app
+//   } else {
+//     console.log("Ứng dụng không chạy từ màn hình chính.");
+//     checkreff.value = "Ứng dụng không chạy từ màn hình chính.";
+//   }
+// });
+
+// const updateSubscriptionStatus = () => {
+//   (window.pushalertbyiw = window.pushalertbyiw || []).push([
+//     "getSubsInfo",
+//     function (result) {
+//       isSubscribed.value = result.isPushEnabled;
+//       isBlocked.value = result.permission === "denied";
+//       subsInfo.value = {
+//         deviceType: result.device_type,
+//         browserType: result.browser_type,
+//         subscriberId: result.subId,
+//       };
+//     },
+//   ]);
+// };
+
+// const handleSubscribe = () => {
+//   if (!isSubscribed.value) {
+//   }
+// };
+
+// const handleUnblock = () => {
+//   window.open("chrome://settings/content/notifications", "_blank");
+// };
 </script>
 
 <template>
   <div class="notification-wrapper">
-    <!-- Chạy thử -->
+    <!-- Subscribe Button -->
     <button
       v-if="!isBlocked"
       @click="handleSubscribe"
       :class="['notification-btn', { subscribed: isSubscribed }]"
     >
       <i class="fas fa-bell"></i>
-      {{ isSubscribed ? "Đã đăng ký thông báo" : "Đăng ký nhận thông báo" }}
+      <!-- {{ isSubscribed ? "Đã đăng ký thông báo" : "Đăng ký nhận thông báo" }} -->
+      Chạy thử coi có được không
     </button>
 
-    <!-- Gửi thông báo -->
     <button
       @click="router.push('/notification/send')"
       :class="['notification-btn', { subscribed: isSubscribed }]"
@@ -83,7 +86,6 @@ onMounted(() => {
       Gửi thông báo
     </button>
 
-    <!-- Tạo thể loại gửi -->
     <button
       @click="router.push('/notification/segment')"
       :class="['notification-btn', { subscribed: isSubscribed }]"
@@ -92,7 +94,19 @@ onMounted(() => {
       Tạo thể loại gửi
     </button>
 
-    <!-- Thông báo lỗi khi bị chặn -->
+    <div class="notification-btn">
+      <p>{{ checkreff }}</p>
+    </div>
+    <!-- 
+    <button
+      @click="router.push('/notification/segment/send')"
+      :class="['notification-btn', { subscribed: isSubscribed }]"
+    >
+      <i class="fas fa-bell"></i>
+      Gửi theo thể loại
+    </button> -->
+
+    <!-- Unblock Button -->
     <button
       v-if="isBlocked"
       @click="handleUnblock"
@@ -102,19 +116,13 @@ onMounted(() => {
       Mở khóa thông báo
     </button>
 
-    <!-- Liên kết Zalo -->
     <a href="https://zalo.me/s/4193228980057818625/">Chuyển sang Zalo</a>
 
-    <!-- Hiển thị thông tin đăng ký -->
+    <!-- Subscription Info -->
     <div v-if="subsInfo && isSubscribed" class="subscription-info">
       <p>Thiết bị: {{ subsInfo.deviceType }}</p>
       <p>Trình duyệt: {{ subsInfo.browserType }}</p>
       <p>ID: {{ subsInfo.subscriberId }}</p>
-    </div>
-
-    <!-- Kiểm tra trạng thái ứng dụng -->
-    <div class="notification-btn">
-      <p>{{ checkreff }}</p>
     </div>
   </div>
 </template>
