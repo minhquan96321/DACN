@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { subscribeToPush } from "./pushAler";
 
 // Reactive variables
 const checkreff = ref("");
@@ -25,7 +26,7 @@ const initPushAlert = () => {
       "getSubsInfo",
       (result) => {
         isSubscribed.value = result.isPushEnabled;
-        isBlocked.value = result.permission === "denied";
+        isBlocked.value = result.permission === "denied"; s
         subsInfo.value = {
           deviceType: result.device_type,
           browserType: result.browser_type,
@@ -38,10 +39,16 @@ const initPushAlert = () => {
 
 // Handle subscription
 const handleSubscribe = () => {
-  if (!isSubscribed.value && window.pushalertbyiw) {
-    window.pushalertbyiw.push(["subscribe"]);
-    isSubscribed.value = true;
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => {
+        console.log('Service Worker registered!', reg);
+      })
+      .catch(err => {
+        console.error('Service Worker registration failed:', err);
+      });
   }
+
 };
 
 // Handle unblocking notifications
@@ -59,90 +66,69 @@ const onPAReady = () => {
 };
 
 onMounted(() => {
-  window.addEventListener("PushAlertReady", onPAReady);
+  // window.addEventListener("PushAlertReady", onPAReady);
 
-  (function (d, t) {
-    console.log("ddd", d);
-    console.log("ttt", t);
-    var g = d.createElement(t),
-      s = d.getElementsByTagName(t)[0];
-    g.src =
-      "https://cdn.pushalert.co/integrate_27942ac22a5962d93a6a2e1ce3d470b3.js";
-    s.parentNode.insertBefore(g, s);
-    console.log("gggg", g);
-    console.log("ssss", s);
-  })(document, "script");
+  // (function (d, t) {
+  //   console.log("ddd", d);
+  //   console.log("ttt", t);
+  //   var g = d.createElement(t),
+  //     s = d.getElementsByTagName(t)[0];
+  //   g.src =
+  //     "https://cdn.pushalert.co/integrate_27942ac22a5962d93a6a2e1ce3d470b3.js";
+  //   s.parentNode.insertBefore(g, s);
+  //   console.log("gggg", g);
+  //   console.log("ssss", s);
+  // })(document, "script");
 
-  if (isRunningStandalone()) {
-    checkreff.value = "Ứng dụng đang chạy từ màn hình chính!";
-    window.location.href = "https://zalo.me/s/4193228980057818625/";
-  } else {
-    checkreff.value = "Ứng dụng không chạy từ màn hình chính.";
-  }
+  // if (isRunningStandalone()) {
+  //   checkreff.value = "Ứng dụng đang chạy từ màn hình chính!";
+  //   window.location.href = "https://zalo.me/s/4193228980057818625/";
+  // } else {
+  //   checkreff.value = "Ứng dụng không chạy từ màn hình chính.";
+  // }
 
-  // Cleanup
-  return () => {
-    window.removeEventListener("PushAlertReady", onPAReady);
-  };
+  // // Cleanup
+  // return () => {
+  //   window.removeEventListener("PushAlertReady", onPAReady);
+  // };
 });
 </script>
 
 <template>
   <div class="notification-wrapper">
-    <!-- Subscribe button -->
-    <button
-      v-if="!isBlocked"
-      @click="handleSubscribe"
-      :class="['notification-btn', { subscribed: isSubscribed }]"
-    >
+    <button v-if="!isBlocked" @click="handleSubscribe" :class="['notification-btn', { subscribed: isSubscribed }]">
       <i class="fas fa-bell"></i>
       {{ isSubscribed ? "Đã đăng ký thông báo" : "Đăng ký nhận thông báo" }}
     </button>
 
-    <!-- Send notification button -->
-    <button
-      @click="router.push('/notification/send')"
-      :class="['notification-btn', { subscribed: isSubscribed }]"
-    >
+    <!-- <button @click="router.push('/notification/send')" :class="['notification-btn', { subscribed: isSubscribed }]">
       <i class="fas fa-paper-plane"></i>
       Gửi thông báo
     </button>
 
-    <!-- Create segment button -->
-    <button
-      @click="router.push('/notification/segment')"
-      :class="['notification-btn', { subscribed: isSubscribed }]"
-    >
+    <button @click="router.push('/notification/segment')" :class="['notification-btn', { subscribed: isSubscribed }]">
       <i class="fas fa-plus-circle"></i>
       Tạo thể loại gửi
     </button>
 
-    <!-- Unblock button -->
-    <button
-      v-if="isBlocked"
-      @click="handleUnblock"
-      class="notification-btn blocked"
-    >
+    <button v-if="isBlocked" @click="handleUnblock" class="notification-btn blocked">
       <i class="fas fa-lock-open"></i>
       Mở khóa thông báo
     </button>
 
-    <!-- Zalo link -->
     <a href="https://zalo.me/s/4193228980057818625/" class="zalo-link">
       Chuyển sang Zalo
     </a>
 
-    <!-- Subscription info -->
     <div v-if="subsInfo && isSubscribed" class="subscription-info">
       <p>Thiết bị: {{ subsInfo.deviceType }}</p>
       <p>Trình duyệt: {{ subsInfo.browserType }}</p>
       <p>ID: {{ subsInfo.subscriberId }}</p>
     </div>
 
-    <!-- App status -->
     <div class="notification-btn status">
       <p>{{ checkreff }}</p>
-    </div>
+    </div> -->
   </div>
 </template>
 
