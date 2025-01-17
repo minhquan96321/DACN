@@ -12,11 +12,13 @@ console.log(11);
 *:after {
   box-sizing: border-box;
 }
+
 * {
   margin: 0;
   padding: 0;
   font: inherit;
 }
+
 img,
 picture,
 svg,
@@ -24,18 +26,21 @@ video {
   display: block;
   max-width: 100%;
 }
+
 input,
 select,
 textarea {
   background-color: transparent;
   outline: none;
 }
+
 button {
   cursor: pointer;
   background-color: transparent;
   outline: none;
   border: 0;
 }
+
 body {
   min-height: 100vh;
   font-weight: 400;
