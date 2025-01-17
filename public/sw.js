@@ -1,9 +1,9 @@
 // importScripts("https://cdn.pushalert.co/sw-78204_7.js");
 self.addEventListener('push', (event) => {
     const data = event.data.json();
-
+    console.log('Push received:', data);
     const options = {
-        body: data.body,
+        body: env.data.text(),
         icon: '/notification.jpg',
         badge: '/notification.jpg',
         actions: data.actions || [],
