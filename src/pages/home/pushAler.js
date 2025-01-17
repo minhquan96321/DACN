@@ -4,7 +4,7 @@ import axios from 'axios';
 const SERVER_URL = 'https://manage-restaurant.minhquancao0.workers.dev/api/push';
 
 // Hàm đăng ký Push Notifications
-export async function sxsubscribeToPush(registration) {
+export async function subscribeToPush(registration) {
   // Lấy public key từ server
   const { data: { publicKey } } = await axios.get(`${SERVER_URL}/public-key`);
 

@@ -41,8 +41,15 @@ const initPushAlert = () => {
 const handleSubscribe = () => {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
-      .then(reg => {
-        console.log('Service Worker registered!', reg);
+      .then(async reg => {
+        try {
+          const registration = await navigator.serviceWorker.register('/sw.js');
+          await subscribeToPush(registration);
+          console.log('Service Worker registered!', reg);
+          alert('Subscribed to Push Notifications!');
+        } catch (error) {
+          alert(error);
+        }
       })
       .catch(err => {
         console.error('Service Worker registration failed:', err);

@@ -11,7 +11,6 @@ import Content from "../Auth/components/Content.vue"
 </template>
 
 <style scoped>
-
 .background {
     background: #101010;
     /* border-radius: 30px; */
