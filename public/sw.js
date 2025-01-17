@@ -8,9 +8,13 @@ self.addEventListener('push', (event) => {
         badge: '/notification.jpg',
         actions: data.actions || [],
         data: data.data || {},
+        data: {
+            ...data.data,
+            message: data.message || "Default message", // Thêm message
+        },
     };
 
-    event.waitUntil(self.registration.showNotification(data.title, data.message, options));
+    event.waitUntil(self.registration.showNotification(data.title, options));
 });
 
 self.addEventListener('notificationclick', (event) => {
