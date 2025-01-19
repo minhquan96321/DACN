@@ -108,6 +108,9 @@ onMounted(() => {
       {{ isSubscribed ? "Đã đăng ký thông báo" : "Đăng ký nhận thông báo" }}
     </button>
 
+
+    <button>Kiểm tra zalo mini app</button>
+
     <!-- <button @click="router.push('/notification/send')" :class="['notification-btn', { subscribed: isSubscribed }]">
       <i class="fas fa-paper-plane"></i>
       Gửi thông báo
