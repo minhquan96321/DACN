@@ -1,265 +1,116 @@
+<template>
+  <div class="surface-ground h-screen flex align-items-center justify-content-center">
+    <div class="surface-card p-4 shadow-2 border-round w-full md:w-6 lg:w-4">
+      <div class="text-center mb-5">
+        <div class="text-900 text-2xl font-medium mb-3">Welcome Back</div>
+        <span class="text-600 font-medium">Sign in to continue</span>
+      </div>
+
+      <div class="flex flex-column gap-3">
+        <!-- Custom Google Login Button -->
+        <Button @click="handleGoogleLogin" class="google-btn p-3" severity="secondary">
+          <i class="pi pi-google mr-2"></i>
+          Sign in with Google
+        </Button>
+      </div>
+
+      <div class="text-center mt-5">
+        <span class="text-600 text-sm">
+          By continuing, you agree to our
+          <a href="#" class="text-primary no-underline">Terms of Service</a> and
+          <a href="#" class="text-primary no-underline">Privacy Policy</a>
+        </span>
+      </div>
+    </div>
+
+    <Toast />
+  </div>
+</template>
+
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
-import { subscribeToPush } from "./pushAler";
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { useToast } from 'primevue/usetoast';
+import { googleConfig } from '../../helper/googleConfig';
+import Button from 'primevue/button';
 
-// Reactive variables
-const checkreff = ref("");
-const isSubscribed = ref(false);
-const subsInfo = ref(null);
-const isBlocked = ref(false);
 const router = useRouter();
+const toast = useToast();
+let googleClient = null;
 
-// Check if app is running in standalone mode
-const isRunningStandalone = () => {
-  return (
-    window.matchMedia("(display-mode: standalone)").matches ||
-    window.navigator.standalone ||
-    document.referrer.includes("android-app://")
-  );
-};
-
-// Initialize PushAlert and check subscription status
-const initPushAlert = () => {
-  if (window.pushalertbyiw) {
-    window.pushalertbyiw.push([
-      "getSubsInfo",
-      (result) => {
-        isSubscribed.value = result.isPushEnabled;
-        isBlocked.value = result.permission === "denied"; s
-        subsInfo.value = {
-          deviceType: result.device_type,
-          browserType: result.browser_type,
-          subscriberId: result.subId,
-        };
+const handleCredentialResponse = async (response) => {
+  try {
+    // Send credential to backend
+    const result = await fetch('https://webapp.minhquancao0.workers.dev/api/login-google', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
       },
-    ]);
-  }
-};
-
-// Handle subscription
-const handleSubscribe = () => {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(async reg => {
-        try {
-          const registration = await navigator.serviceWorker.register('/sw.js');
-          await subscribeToPush(registration);
-          console.log('Service Worker registered!', reg);
-          alert('Subscribed to Push Notifications!');
-        } catch (error) {
-          alert(error);
-        }
+      body: JSON.stringify({
+        credential: response.credential
       })
-      .catch(err => {
-        console.error('Service Worker registration failed:', err);
-      });
+    });
+
+    const data = await result.json();
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+
+    // Save user data
+    localStorage.setItem('user', JSON.stringify(data.data.user));
+
+    toast.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Logged in successfully',
+      life: 3000
+    });
+
+    // Redirect to home
+    router.push('/');
+  } catch (error) {
+    console.error('Login error:', error);
+    toast.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: error.message || 'Failed to login',
+      life: 3000
+    });
   }
-
 };
 
-// Handle unblocking notifications
-const handleUnblock = () => {
-  window.open("chrome://settings/content/notifications", "_blank");
-};
-
-// PushAlert ready handler
-const onPAReady = () => {
-  console.log(window.PushAlertCo.init());
-  if (window.PushAlertCo) {
-    window.PushAlertCo.init();
-    initPushAlert();
+const handleGoogleLogin = () => {
+  if (googleClient) {
+    googleClient.requestAccessToken();
   }
 };
 
 onMounted(() => {
-  // window.addEventListener("PushAlertReady", onPAReady);
+  // Load Google Sign In script
+  const script = document.createElement('script');
+  script.src = 'https://accounts.google.com/gsi/client';
+  script.async = true;
+  script.defer = true;
+  document.head.appendChild(script);
 
-  // (function (d, t) {
-  //   console.log("ddd", d);
-  //   console.log("ttt", t);
-  //   var g = d.createElement(t),
-  //     s = d.getElementsByTagName(t)[0];
-  //   g.src =
-  //     "https://cdn.pushalert.co/integrate_27942ac22a5962d93a6a2e1ce3d470b3.js";
-  //   s.parentNode.insertBefore(g, s);
-  //   console.log("gggg", g);
-  //   console.log("ssss", s);
-  // })(document, "script");
+  script.onload = () => {
+    google.accounts.id.initialize({
+      client_id: googleConfig.clientId,
+      callback: handleCredentialResponse
+    });
 
-  // if (isRunningStandalone()) {
-  //   checkreff.value = "Ứng dụng đang chạy từ màn hình chính!";
-  //   window.location.href = "https://zalo.me/s/4193228980057818625/";
-  // } else {
-  //   checkreff.value = "Ứng dụng không chạy từ màn hình chính.";
-  // }
-
-  // // Cleanup
-  // return () => {
-  //   window.removeEventListener("PushAlertReady", onPAReady);
-  // };
+    googleClient = google.accounts.oauth2.initTokenClient({
+      client_id: googleConfig.clientId,
+      callback: handleCredentialResponse,
+      scope: 'email profile'
+    });
+  };
 });
 </script>
 
-<template>
-  <div class="notification-wrapper">
-    <button v-if="!isBlocked" @click="handleSubscribe" :class="['notification-btn', { subscribed: isSubscribed }]">
-      <i class="fas fa-bell"></i>
-      {{ isSubscribed ? "Đã đăng ký thông báo" : "Đăng ký nhận thông báo" }}
-    </button>
-
-
-    <button>Kiểm tra zalo mini app</button>
-
-    <!-- <button @click="router.push('/notification/send')" :class="['notification-btn', { subscribed: isSubscribed }]">
-      <i class="fas fa-paper-plane"></i>
-      Gửi thông báo
-    </button>
-
-    <button @click="router.push('/notification/segment')" :class="['notification-btn', { subscribed: isSubscribed }]">
-      <i class="fas fa-plus-circle"></i>
-      Tạo thể loại gửi
-    </button>
-
-    <button v-if="isBlocked" @click="handleUnblock" class="notification-btn blocked">
-      <i class="fas fa-lock-open"></i>
-      Mở khóa thông báo
-    </button>
-
-    <a href="https://zalo.me/s/4193228980057818625/" class="zalo-link">
-      Chuyển sang Zalo
-    </a>
-
-    <div v-if="subsInfo && isSubscribed" class="subscription-info">
-      <p>Thiết bị: {{ subsInfo.deviceType }}</p>
-      <p>Trình duyệt: {{ subsInfo.browserType }}</p>
-      <p>ID: {{ subsInfo.subscriberId }}</p>
-    </div>
-
-    <div class="notification-btn status">
-      <p>{{ checkreff }}</p>
-    </div> -->
-  </div>
-</template>
-
 <style scoped>
-.notification-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  margin-top: 95px;
-}
-
-.notification-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
-  border-radius: 25px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  background-color: #3498db;
-  color: white;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11);
-  min-width: 200px;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.notification-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1);
-  background-color: #2980b9;
-}
-
-.notification-btn.subscribed {
-  background-color: #27ae60;
-}
-
-.notification-btn.blocked {
-  background-color: #e74c3c;
-}
-
-.notification-btn.blocked:hover {
-  background-color: #c0392b;
-}
-
-.notification-btn.status {
-  background-color: #f8f9fa;
-  color: #666;
-  cursor: default;
-}
-
-.notification-btn.status:hover {
-  transform: none;
-  background-color: #f8f9fa;
-}
-
-.zalo-link {
-  margin-top: 15px;
-  color: #3498db;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-.zalo-link:hover {
-  color: #2980b9;
-}
-
-.subscription-info {
-  margin-top: 15px;
-  padding: 10px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.subscription-info p {
-  margin: 5px 0;
-}
-
-/* Mobile Responsive Styles */
-@media screen and (max-width: 768px) {
-  .notification-wrapper {
-    margin-top: 60px;
-    padding: 15px;
-  }
-
-  .notification-btn {
-    min-width: 160px;
-    padding: 10px 20px;
-    font-size: 0.9rem;
-  }
-
-  .subscription-info {
-    width: 90%;
-    font-size: 0.8rem;
-    padding: 8px;
-  }
-}
-
-/* Small Mobile Devices */
-@media screen and (max-width: 480px) {
-  .notification-wrapper {
-    margin-top: 40px;
-    padding: 10px;
-  }
-
-  .notification-btn {
-    min-width: 140px;
-    padding: 8px 16px;
-    font-size: 0.85rem;
-  }
-
-  .subscription-info {
-    width: 95%;
-    font-size: 0.75rem;
-    padding: 6px;
-  }
+.google-btn {
+  width: 100%;
 }
 </style>
