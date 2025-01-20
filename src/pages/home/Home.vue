@@ -8,10 +8,11 @@
 
       <div class="flex flex-column gap-3">
         <!-- Custom Google Login Button -->
-        <Button @click="handleGoogleLogin" class="google-btn p-3" severity="secondary">
+        <!-- <Button @click="handleGoogleLogin" class="google-btn p-3" severity="secondary">
           <i class="pi pi-google mr-2"></i>
           Sign in with Google
-        </Button>
+        </Button> -->
+        <button @click="handleGoogleLogin"></button>
       </div>
 
       <div class="text-center mt-5">
@@ -23,19 +24,19 @@
       </div>
     </div>
 
-    <Toast />
+    <!-- <Toast /> -->
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { useToast } from 'primevue/usetoast';
+// import { useToast } from 'primevue/usetoast';
 import { googleConfig } from '../../helper/googleConfig';
-import Button from 'primevue/button';
+// import Button from 'primevue/button';
 
 const router = useRouter();
-const toast = useToast();
+// const toast = useToast();
 let googleClient = null;
 
 const handleCredentialResponse = async (response) => {
@@ -60,23 +61,23 @@ const handleCredentialResponse = async (response) => {
     // Save user data
     localStorage.setItem('user', JSON.stringify(data.data.user));
 
-    toast.add({
-      severity: 'success',
-      summary: 'Success',
-      detail: 'Logged in successfully',
-      life: 3000
-    });
+    // toast.add({
+    //   severity: 'success',
+    //   summary: 'Success',
+    //   detail: 'Logged in successfully',
+    //   life: 3000
+    // });
 
     // Redirect to home
     router.push('/');
   } catch (error) {
     console.error('Login error:', error);
-    toast.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: error.message || 'Failed to login',
-      life: 3000
-    });
+    // toast.add({
+    //   severity: 'error',
+    //   summary: 'Error',
+    //   detail: error.message || 'Failed to login',
+    //   life: 3000
+    // });
   }
 };
 
