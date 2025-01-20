@@ -12,7 +12,7 @@
           <i class="pi pi-google mr-2"></i>
           Sign in with Google
         </Button> -->
-        <button @click="handleGoogleLogin"></button>
+        <button @click="handleGoogleLogin">Đăng nhập </button>
       </div>
 
       <div class="text-center mt-5">
